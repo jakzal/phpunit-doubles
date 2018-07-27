@@ -21,7 +21,9 @@ trait TestDoubles
     protected function initialiseTestDoubles(): void
     {
         foreach ($this->getTestDoubleProperties() as $property) {
-            $this->{$property->getName()} = $this->createTestDouble($property);
+            if (\property_exists($this, $property->getName())) {
+                $this->{$property->getName()} = $this->createTestDouble($property);
+            }
         }
     }
 
@@ -65,6 +67,9 @@ trait TestDoubles
             ->getMock();
     }
 
+    /**
+     * @return Property[]
+     */
     private function getTestDoubleProperties(): array
     {
         return (new ReflectionExtractor())->extract($this, function (Property $property) {
