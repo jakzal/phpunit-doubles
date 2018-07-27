@@ -3,6 +3,7 @@
 return [
     'whitelist' => [
         'PHPUnit\Framework\*',
+        'Prophecy\Prophecy\*',
         'Zalas\PHPUnit\Doubles\*',
     ],
 ];

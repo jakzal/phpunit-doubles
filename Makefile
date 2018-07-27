@@ -25,6 +25,10 @@ test: vendor cs deptrac phpunit infection
 test-min: update-min cs deptrac phpunit infection
 .PHONY: test-min
 
+test-package: package test-package-tools
+	cd tests/phar && ./tools/phpunit
+.PHONY: test-package
+
 cs: tools/php-cs-fixer
 	tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs
@@ -52,14 +56,18 @@ phpunit-coverage: tools/phpunit
 tools: tools/php-cs-fixer tools/deptrac tools/infection tools/box
 .PHONY: tools
 
+test-package-tools: tests/phar/tools/phpunit tests/phar/tools/phpunit.d/zalas-phpunit-doubles-extension.phar
+.PHONY: test-package-tools
+
 clean:
 	rm -rf build
 	rm -rf vendor
 	find tools -not -path '*/\.*' -type f -delete
+	find tests/phar/tools -not -path '*/\.*' -type f -delete
 .PHONY: clean
 
 package: tools/box
-	$(eval VERSION=$(shell (git describe --abbrev=0 --tags 2>/dev/null || echo "dev") | sed -e 's/^v//'))
+	$(eval VERSION=$(shell (git describe --abbrev=0 --tags 2>/dev/null || echo "0.1-dev") | sed -e 's/^v//'))
 	@rm -rf build/phar && mkdir -p build/phar
 
 	cp -r src LICENSE composer.json scoper.inc.php build/phar
@@ -96,5 +104,11 @@ tools/infection.pubkey:
 
 tools/box:
 	curl -Ls https://github.com/humbug/box/releases/download/3.0.0-beta.4/box.phar -o tools/box && chmod +x tools/box
+
+tests/phar/tools/phpunit:
+	curl -Ls https://phar.phpunit.de/phpunit-7.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
+
+tests/phar/tools/phpunit.d/zalas-phpunit-doubles-extension.phar: build/zalas-phpunit-doubles-extension.phar
+	cp build/zalas-phpunit-doubles-extension.phar tests/phar/tools/phpunit.d/zalas-phpunit-doubles-extension.phar
 
 build/zalas-phpunit-doubles-extension.phar: package
