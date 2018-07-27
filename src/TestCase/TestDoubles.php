@@ -21,7 +21,7 @@ trait TestDoubles
     protected function initialiseTestDoubles(): void
     {
         foreach ($this->getTestDoubleProperties() as $property) {
-            if (\property_exists($this, $property->getName())) {
+            if (\property_exists($this, $property->getName()) && null === $this->{$property->getName()}) {
                 $this->{$property->getName()} = $this->createTestDouble($property);
             }
         }
