@@ -7,7 +7,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\Fixtures\Vimes;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
 class AmbiguousDoubleRunner extends TestCase
 {

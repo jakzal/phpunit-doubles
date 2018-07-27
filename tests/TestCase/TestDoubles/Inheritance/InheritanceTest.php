@@ -5,8 +5,8 @@ namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Inheritance;
 
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\Fixtures\Fred;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\Fixtures\Vimes;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
 class InheritanceTest extends BaseTestCase
 {
