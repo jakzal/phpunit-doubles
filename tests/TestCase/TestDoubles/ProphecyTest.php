@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Zalas\PHPUnit\Doubles\Tests\TestCase;
+namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\Fixtures\Copper;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\Fixtures\Discworld;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\Fixtures\Fred;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\Fixtures\Nobby;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\Fixtures\Vimes;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
-class TestDoublesProphecyTest extends TestCase
+class ProphecyTest extends TestCase
 {
     use TestDoubles;
 
@@ -30,6 +30,11 @@ class TestDoublesProphecyTest extends TestCase
      * @var Fred|Copper|ObjectProphecy
      */
     private $fred;
+
+    /**
+     * @var Death
+     */
+    private $death;
 
     public function test_it_initialises_object_prophecies()
     {
@@ -51,5 +56,10 @@ class TestDoublesProphecyTest extends TestCase
 
         $this->vimes->recruit($this->nobby)->shouldHaveBeenCalled();
         $this->vimes->recruit($this->fred)->shouldHaveBeenCalled();
+    }
+
+    public function test_non_object_prophecies_are_ignored()
+    {
+        $this->assertNull($this->death);
     }
 }

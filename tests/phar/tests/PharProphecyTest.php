@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoublesProphecyTest;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\ProphecyTest;
 
-class PharProphecyTestTest extends TestDoublesProphecyTest
+class PharProphecyTestTest extends ProphecyTest
 {
 }
