@@ -12,3 +12,46 @@ Please note we have a [code of conduct](CODE_OF_CONDUCT.md). Please follow it in
 * Provide tests for any code you write.
 * Make sure all tests are passing.
 
+## Running tests
+
+### All tests
+
+```bash
+make test
+```
+
+### All tests (min dependencies)
+
+```bash
+make test-min
+```
+
+### PHPUnit
+
+```bash
+make phpunit
+```
+
+### Mutation testing
+
+```bash
+make infection
+```
+
+## Fixing coding standard violations
+
+```bash
+make cs-fix
+```
+
+## Verifying package inter-dependencies
+
+```bash
+make deptrac
+```
+
+## Creating the phar
+
+```bash
+make package test-package
+```
