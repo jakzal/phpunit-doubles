@@ -7,6 +7,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Death;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
@@ -31,6 +32,11 @@ class PhpunitTest extends TestCase
      */
     private $fred;
 
+    /**
+     * @var Death
+     */
+    private $death;
+
     public function test_it_initialises_mock_objects()
     {
         $this->assertInstanceOf(MockObject::class, $this->vimes);
@@ -51,5 +57,10 @@ class PhpunitTest extends TestCase
         $this->vimes->expects($this->at(1))->method('recruit')->with($this->fred);
 
         $discworld->createNightWatch();
+    }
+
+    public function test_non_mock_objects_are_ignored()
+    {
+        $this->assertNull($this->death);
     }
 }

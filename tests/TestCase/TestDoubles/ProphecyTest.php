@@ -31,6 +31,11 @@ class ProphecyTest extends TestCase
      */
     private $fred;
 
+    /**
+     * @var Death
+     */
+    private $death;
+
     public function test_it_initialises_object_prophecies()
     {
         $this->assertInstanceOf(ObjectProphecy::class, $this->vimes);
@@ -51,5 +56,10 @@ class ProphecyTest extends TestCase
 
         $this->vimes->recruit($this->nobby)->shouldHaveBeenCalled();
         $this->vimes->recruit($this->fred)->shouldHaveBeenCalled();
+    }
+
+    public function test_non_object_prophecies_are_ignored()
+    {
+        $this->assertNull($this->death);
     }
 }
