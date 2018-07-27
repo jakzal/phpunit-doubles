@@ -29,11 +29,16 @@ trait TestDoubles
 
     private function createTestDouble(Property $property)
     {
+        if ($property->hasType(ObjectProphecy::class) && $property->hasType(MockObject::class)) {
+            throw new \LogicException(\sprintf('Ambiguous test double definition for "%s": "%s".', $property->getName(), \implode('|', $property->getTypes())));
+        }
+
         if ($property->hasType(ObjectProphecy::class)) {
             return $this->createTestDoubleWithProphecy($property->getTypesFiltered(function (string $type) {
                 return ObjectProphecy::class !== $type;
             }));
         }
+
         if ($property->hasType(MockObject::class)) {
             return $this->createTestDoubleWithPhpunit($property->getTypesFiltered(function (string $type) {
                 return MockObject::class !== $type;
