@@ -1,6 +1,7 @@
 # PHPUnit Doubles
 
 [![Build Status](https://travis-ci.com/jakzal/phpunit-doubles.svg?branch=master)](https://travis-ci.com/jakzal/phpunit-doubles)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jakzal/phpunit-doubles/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jakzal/phpunit-doubles/?branch=master)
 
 Initialises test doubles in PHPUnit test cases for you.
 
