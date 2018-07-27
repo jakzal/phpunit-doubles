@@ -15,9 +15,12 @@ use Zalas\PHPUnit\Doubles\Extractor\Property;
 final class ReflectionExtractor implements Extractor
 {
     /**
+     * @param object   $object
+     * @param callable $filter
+     *
      * @return Property[]
      */
-    public function extract(object $object, callable $filter): array
+    public function extract(/*object */$object, callable $filter): array
     {
         return $this->extractFromReflection(new \ReflectionClass($object), $filter);
     }
