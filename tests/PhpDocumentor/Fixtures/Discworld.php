@@ -15,4 +15,6 @@ class Discworld extends World
      * @var Detritus|Troll
      */
     private $detritus;
+
+    private $notDocumented;
 }
