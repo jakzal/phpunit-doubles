@@ -13,6 +13,6 @@
     "banner": [
         "This file is part of the zalas/phpunit-doubles project.",
         "",
-        "(c) Jakub Zalas <jakub@zalas.pl>"
+        "(c) 2018 Jakub Zalas <jakub@zalas.pl>"
     ]
 }
