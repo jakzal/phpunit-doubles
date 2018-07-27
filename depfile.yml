@@ -1,0 +1,59 @@
+paths:
+  - ./src
+exclude_files: ~
+layers:
+  - name: Doubles TestCase
+    collectors:
+      - type: className
+        regex: ^Zalas\\PHPUnit\\Doubles\\TestCase\\.*
+  - name: Doubles Extractor
+    collectors:
+      - type: className
+        regex: ^Zalas\\PHPUnit\\Doubles\\Extractor\\.*
+  - name: Doubles PhpDocumentor
+    collectors:
+      - type: className
+        regex: ^Zalas\\PHPUnit\\Doubles\\PhpDocumentor\\.*
+  - name: PHPUnit
+    collectors:
+      - type: className
+        regex: ^PHPUnit\\Framework\\.*
+  - name: Prophecy
+    collectors:
+      - type: className
+        regex: ^Prophecy\\Prophecy\\.*
+  - name: PhpDocumentor Reflection
+    collectors:
+      - type: className
+        regex: ^phpDocumentor\\Reflection\\.*
+  - name: Other Vendors
+    collectors:
+      - type: bool
+        must:
+          # must be outside of global namespace
+          - type: className
+            regex: '[\\]+'
+        must_not:
+          # must not be one of the known vendors
+          - type: className
+            regex: ^Zalas\\PHPUnit\\Doubles\\TestCase\\.*
+          - type: className
+            regex: ^Zalas\\PHPUnit\\Doubles\\Extractor\\.*
+          - type: className
+            regex: ^Zalas\\PHPUnit\\Doubles\\PhpDocumentor\\.*
+          - type: className
+            regex: ^PHPUnit\\Framework\\.*
+          - type: className
+            regex: ^Prophecy\\Prophecy\\.*
+          - type: className
+            regex: ^phpDocumentor\\Reflection\\.*
+ruleset:
+  Doubles TestCase:
+    - Doubles Extractor
+    - Doubles PhpDocumentor
+    - PHPUnit
+    - Prophecy
+  Doubles Extractor:
+  Doubles PhpDocumentor:
+    - Doubles Extractor
+    - PhpDocumentor Reflection

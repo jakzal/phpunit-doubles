@@ -1,0 +1,18 @@
+{
+    "base-path": "build/phar",
+    "output": "../zalas-phpunit-doubles-extension.phar",
+    "compression": "GZ",
+    "directories": ["."],
+    "dump-autoload": true,
+    "exclude-composer-files": true,
+    "check-requirements": false,
+    "main": "vendor/autoload.php",
+    "compactors": [
+        "KevinGH\\Box\\Compactor\\PhpScoper"
+    ],
+    "banner": [
+        "This file is part of the zalas/phpunit-doubles project.",
+        "",
+        "(c) Jakub Zalas <jakub@zalas.pl>"
+    ]
+}

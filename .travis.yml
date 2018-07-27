@@ -1,0 +1,24 @@
+language: php
+matrix:
+  include:
+  - php: 7.1
+    env: EXECUTE_DEPLOYMENT=true
+  - php: 7.2
+    env: deps=low
+  fast_finish: true
+before_install:
+- phpenv config-rm xdebug.ini
+install:
+- if [[ $deps = low ]]; then make update-min; else make install; fi
+script:
+- if [[ $deps = low ]]; then make test-min; else make test; fi
+- make package test-package
+deploy:
+  provider: releases
+  api_key:
+    secure: SSjBKEch3qcKlWVEb5DbXDFUvdnLTV03e82OryeNIYPD7pWhjoxdOWicB/od9b39/YD/LR1lxMt9+fHRseCrwo1FOUZmnMgzphr0MiF2RZUF4CpWFJXL+EbxQ/GbKVv+hQhDwyBDwlNchPzrVM3tRe/llt0Xg8A7NGQI0UBdZZFJKWgydoSYN4VSias8FTBMS0Nvi/D4cE2iHDJE1bDpx+Fm1w9LP/DfvnSMcQwJ1mwTNiIRO0/vH5OWlkwWjT2UDEP3TOe9sj6XfYHpU9nuaCEGTiL3XUnfWyNP8hk5Fq8wsN0vBSvW66kmz2uDnN7vZPm7b7YUXfTHJW7M78DzWmfSjaiNFx35yjgJ34tIDxfv00BOh5t2OGXEt4qX8Si0oDkFpotnCk+zdQM8IaCYyITRa1/gtjyAZLW8yvBE9l5ZW51mEURCK94Gm22T+wo4srLtZqqho0yzaFVKxGzQ11HC0KskoMR4zE9P3C9p2PDQO+o2GFSr9o8hlj0QvYVpyyfBG95y8fUyIddJropfkyXuR1Ze4clmNJN/PmKG6pzSZzOM2gBIXUNlZ1BZcPo4J1QvWsvqkkYLH908VOWShrPQlSGUmtS+FSfO4zDFwnNmtScd/WHqZmSZi2ZA/dvJXhAB3sb4QBmbKqcQArUPvBiasrFCqhn/uenrQMKNudg=
+  file: build/zalas-phpunit-doubles-extension.phar
+  on:
+    tags: true
+    repo: jakzal/phpunit-doubles
+    condition: "$EXECUTE_DEPLOYMENT"
