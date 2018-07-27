@@ -63,7 +63,9 @@ trait TestDoubles
 
     private function createTestDoubleWithPhpunit(array $types): MockObject
     {
-        return $this->getMockBuilder(1 === \count($types) ? \array_pop($types) : $types)
+        $normalisedTypes = 1 === \count($types) ? \array_pop($types) : (!empty($types) ? $types : \stdClass::class);
+
+        return $this->getMockBuilder($normalisedTypes)
             ->disableOriginalConstructor()
             ->disableOriginalClone()
             ->disableArgumentCloning()
