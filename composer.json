@@ -1,0 +1,33 @@
+{
+    "name": "zalas/phpunit-doubles",
+    "description": "Initialises test doubles in PHPUnit test cases for you",
+    "type": "library",
+    "require": {
+        "php": "^7.1",
+        "phpunit/phpunit": "^7.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Zalas\\PHPUnit\\Doubles\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zalas\\PHPUnit\\Doubles\\Tests\\": "tests"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jakub Zalas",
+            "email": "jakub@zalas.pl"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}
