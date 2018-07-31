@@ -10,6 +10,10 @@ layers:
     collectors:
       - type: className
         regex: ^Zalas\\PHPUnit\\Doubles\\Extractor\\.*
+  - name: Doubles Injector
+    collectors:
+      - type: className
+        regex: ^Zalas\\PHPUnit\\Doubles\\Injector\\.*
   - name: Doubles PhpDocumentor
     collectors:
       - type: className
@@ -40,6 +44,8 @@ layers:
           - type: className
             regex: ^Zalas\\PHPUnit\\Doubles\\Extractor\\.*
           - type: className
+            regex: ^Zalas\\PHPUnit\\Doubles\\Injector\\.*
+          - type: className
             regex: ^Zalas\\PHPUnit\\Doubles\\PhpDocumentor\\.*
           - type: className
             regex: ^PHPUnit\\Framework\\.*
@@ -50,10 +56,12 @@ layers:
 ruleset:
   Doubles TestCase:
     - Doubles Extractor
+    - Doubles Injector
     - Doubles PhpDocumentor
     - PHPUnit
     - Prophecy
   Doubles Extractor:
+  Doubles Injector:
   Doubles PhpDocumentor:
     - Doubles Extractor
     - PhpDocumentor Reflection
