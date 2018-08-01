@@ -5,14 +5,14 @@ namespace Zalas\PHPUnit\Doubles\Injector;
 
 final class PropertyAccessInjector implements Injector
 {
-    public function inject(/*object */$target, string $property, /*object */$object): void
+    public function inject(/*object */$target, string $property, /*object */$object)/*: void*/
     {
         $this->createInjector($target, $property)($object);
     }
 
     private function createInjector(/*object */$target, string $property): \Closure
     {
-        $injector = function (/*object */$object) use ($property): void {
+        $injector = function (/*object */$object) use ($property)/*: void*/ {
             if (null === $this->$property) {
                 $this->$property = $object;
             }

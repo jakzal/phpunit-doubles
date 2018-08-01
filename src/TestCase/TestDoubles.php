@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\TestCase;
 
-use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\Injector\PropertyAccessInjector;
@@ -11,14 +10,14 @@ use Zalas\PHPUnit\Doubles\PhpDocumentor\ReflectionExtractor;
 
 trait TestDoubles
 {
-    abstract public function getMockBuilder($className): MockBuilder;
+    abstract public function getMockBuilder($className)/*: MockBuilder;*/;
 
-    abstract protected function prophesize($classOrInterface = null): ObjectProphecy;
+    abstract protected function prophesize($classOrInterface = null)/*: ObjectProphecy*/;
 
     /**
      * @before
      */
-    protected function initialiseTestDoubles(): void
+    protected function initialiseTestDoubles()/*: void*/
     {
         $doubler = new Doubler(
             new ReflectionExtractor(),

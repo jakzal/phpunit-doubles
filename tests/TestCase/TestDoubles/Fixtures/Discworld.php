@@ -21,7 +21,7 @@ class Discworld
         $this->coppers = $coppers;
     }
 
-    public function createNightWatch(): void
+    public function createNightWatch()/*: void*/
     {
         foreach ($this->coppers as $copper) {
             $this->vimes->recruit($copper);

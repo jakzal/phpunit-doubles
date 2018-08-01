@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\Doubles\PhpDocumentor;
 
 use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\Types\Context;
@@ -52,7 +51,7 @@ final class ReflectionExtractor implements Extractor
 
     private function propertyFactory(\ReflectionClass $class, $docBlockFactory, $classContext): callable
     {
-        return function (\ReflectionProperty $propertyReflection) use ($docBlockFactory, $classContext, $class): ?Property {
+        return function (\ReflectionProperty $propertyReflection) use ($docBlockFactory, $classContext, $class)/*: ?Property*/ {
             $context = $this->getTraitContextIfExists($propertyReflection) ?? $classContext;
 
             if ($propertyReflection->getDeclaringClass()->getName() === $class->getName()) {
@@ -70,7 +69,7 @@ final class ReflectionExtractor implements Extractor
         };
     }
 
-    private function getTraitContextIfExists(\ReflectionProperty $propertyReflection): ?Context
+    private function getTraitContextIfExists(\ReflectionProperty $propertyReflection)/*: ?Context*/
     {
         foreach ($propertyReflection->getDeclaringClass()->getTraits() as $trait) {
             if ($trait->hasProperty($propertyReflection->getName())) {
@@ -81,7 +80,7 @@ final class ReflectionExtractor implements Extractor
         return null;
     }
 
-    private function createProperty(\ReflectionProperty $propertyReflection, DocBlockFactory $docBlockFactory, Context $context): ?Property
+    private function createProperty(\ReflectionProperty $propertyReflection, DocBlockFactory $docBlockFactory, Context $context)/*: ?Property*/
     {
         if ($propertyReflection->getDocComment()) {
             $var = $this->extractVar($docBlockFactory->create($propertyReflection, $context));
@@ -100,14 +99,14 @@ final class ReflectionExtractor implements Extractor
         return null;
     }
 
-    private function extractVar(DocBlock $docBlock): ?string
+    private function extractVar(DocBlock $docBlock)/*: ?string*/
     {
         $var = $this->getFirstTag($docBlock, 'var');
 
         return $var instanceof Var_ ? (string) $var->getType() : null;
     }
 
-    private function getFirstTag(DocBlock $docBlock, string $name): ?Tag
+    private function getFirstTag(DocBlock $docBlock, string $name)/*: ?Tag*/
     {
         $tags = $docBlock->getTagsByName($name);
 

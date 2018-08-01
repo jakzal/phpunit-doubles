@@ -13,21 +13,6 @@ Initialises test doubles in PHPUnit test cases for you.
 composer require --dev zalas/phpunit-doubles
 ```
 
-### Phar
-
-The extension is also distributed as a PHAR, which can be downloaded from the most recent
-[Github Release](https://github.com/jakzal/phpunit-doubles/releases).
-
-Put the extension in your PHPUnit extensions directory.
-Remember to instruct PHPUnit to load extensions in your `phpunit.xml`:
-
-```xml
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
-         extensionsDirectory="tools/phpunit.d"
->
-</phpunit>
-```
-
 ## Usage
 
 Include the `Zalas\PHPUnit\Doubles\TestCase\TestDoubles` trait to have your test doubles initialised
