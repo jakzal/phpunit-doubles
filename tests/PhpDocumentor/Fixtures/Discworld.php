@@ -8,8 +8,6 @@ use Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\World\Turtle;
 
 class Discworld extends World
 {
-    use Turtle;
-
     /**
      * @var Detritus|Troll
      */

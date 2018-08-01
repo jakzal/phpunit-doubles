@@ -45,7 +45,7 @@ class Doubler
         $doubleType = $this->getDoubleType($property);
         $allDoubleTypes = \array_keys($this->doubleFactories);
 
-        return $this->doubleFactories[$doubleType]($property->getTypesFiltered(function (/*string */$type) use ($allDoubleTypes)/*: bool*/ {
+        return \call_user_func($this->doubleFactories[$doubleType], $property->getTypesFiltered(function (/*string */$type) use ($allDoubleTypes)/*: bool*/ {
             return !\in_array($type, $allDoubleTypes);
         }));
     }

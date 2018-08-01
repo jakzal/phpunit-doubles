@@ -30,7 +30,7 @@ final class Property
         return $this->types;
     }
 
-    public function getTypesFiltered(callable $filter)/*: array*/
+    public function getTypesFiltered(/*callable */$filter)/*: array*/
     {
         return \array_filter($this->types, $filter);
     }

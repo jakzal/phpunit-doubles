@@ -14,5 +14,5 @@ interface Extractor
      *
      * @return Property[]
      */
-    public function extract(/*object */$object, callable $filter)/*: array*/;
+    public function extract(/*object */$object, /*callable */$filter)/*: array*/;
 }

@@ -6,19 +6,12 @@ final class PropertyAccessInjector implements Injector
 {
     public function inject(/*object */$target, /*string */$property, /*object */$object)/*: void*/
     {
-        $injector = $this->createInjector($target, $property);
-        $injector($object);
-    }
-
-    private function createInjector(/*object */$target, /*string */$property)/*: \Closure*/
-    {
-        $injector = function (/*object */$object) use ($property)/*: void*/ {
-            if (null === $this->$property) {
-                $this->$property = $object;
-            }
-        };
-
-        return $injector->bindTo($target, $this->findScope($target, $property));
+        $class = new \ReflectionClass($this->findScope($target, $property));
+        $propertyReflection = $class->getProperty($property);
+        $propertyReflection->setAccessible(true);
+        if (null === $propertyReflection->getValue($target)) {
+            $propertyReflection->setValue($target, $object);
+        }
     }
 
     /**

@@ -2,19 +2,16 @@
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles;
 
-use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
-class ProphecyTest extends TestCase
+class ProphecyTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Vimes|ObjectProphecy
      */
@@ -49,7 +46,7 @@ class ProphecyTest extends TestCase
 
     public function test_object_prophecies_verify_expectations()
     {
-        $discworld = new Discworld($this->vimes->reveal(), [$this->nobby->reveal(), $this->fred->reveal()]);
+        $discworld = new Discworld($this->vimes->reveal(), array($this->nobby->reveal(), $this->fred->reveal()));
 
         $discworld->createNightWatch();
 

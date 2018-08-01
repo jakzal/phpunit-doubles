@@ -1,7 +1,7 @@
 language: php
 matrix:
   include:
-  - php: 5.4
+  - php: 5.3
     env: deps=low
   fast_finish: true
 before_install:

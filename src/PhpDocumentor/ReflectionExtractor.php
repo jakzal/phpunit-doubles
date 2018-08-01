@@ -10,7 +10,7 @@ use Zalas\PHPUnit\Doubles\Extractor\Property;
 
 final class ReflectionExtractor implements Extractor
 {
-    private $parsedUseStatements = [];
+    private $parsedUseStatements = array();
 
     /**
      * @param object   $object
@@ -18,66 +18,31 @@ final class ReflectionExtractor implements Extractor
      *
      * @return Property[]
      */
-    public function extract(/*object */$object, callable $filter)/*: array*/
+    public function extract(/*object */$object, /*callable */$filter)/*: array*/
     {
         return $this->extractFromReflection(new \ReflectionClass($object), $filter);
     }
 
     /**
-     * @return Property[]
+     * @internal
      */
-    private function extractFromReflection(\ReflectionClass $class, callable $filter)/*: array*/
-    {
-        $properties = $this->mapClassToProperties($class, $filter);
-        $parentProperties = $class->getParentClass() ? $this->extractFromReflection($class->getParentClass(), $filter) : [];
-
-        return \array_merge($properties, $parentProperties);
-    }
-
-    /**
-     * @return Property[]
-     */
-    private function mapClassToProperties(\ReflectionClass $class, callable $filter)/*: array*/
-    {
-        return \array_filter(
-            \array_map($this->propertyFactory($class), $class->getProperties()),
-            $this->buildFilter($filter)
-        );
-    }
-
-    private function propertyFactory(\ReflectionClass $class)/*: callable*/
-    {
-        return function (\ReflectionProperty $propertyReflection) use ($class)/*: ?Property*/ {
-            if ($propertyReflection->getDeclaringClass()->getName() === $class->getName()) {
-                return $this->createProperty($propertyReflection);
-            }
-
-            return null;
-        };
-    }
-
-    private function buildFilter(callable $filter)/*: callable*/
-    {
-        return function ($property) use ($filter)/*: bool*/ {
-            return $property instanceof Property && $filter($property);
-        };
-    }
-
-    private function createProperty(\ReflectionProperty $propertyReflection)/*: ?Property*/
+    public function createProperty(\ReflectionProperty $propertyReflection)/*: ?Property*/
     {
         if ($propertyReflection->getDocComment()) {
             $docBlock = new DocBlock($propertyReflection);
             $var = $this->extractVar($docBlock);
 
-            if (\in_array($var, ['bool', 'boolean', 'array', 'string', 'int', 'integer', 'float', 'double', 'mixed', 'null'])) {
+            if (\in_array($var, array('bool', 'boolean', 'array', 'string', 'int', 'integer', 'float', 'double', 'mixed', 'null'))) {
                 return null;
             }
+
+            $self = $this;
 
             return null !== $var ? new Property(
                 $propertyReflection->getName(),
                 \array_map(
-                    function ($type) use ($propertyReflection) {
-                        return $this->resolveType($type, $propertyReflection);
+                    function ($type) use ($propertyReflection, $self) {
+                        return $self->resolveType($type, $propertyReflection);
                     },
                     \explode('|', $var)
                 )
@@ -87,28 +52,13 @@ final class ReflectionExtractor implements Extractor
         return null;
     }
 
-    private function extractVar(DocBlock $docBlock)/*: ?string*/
-    {
-        $var = $this->getFirstTag($docBlock, 'var');
-
-        return $var instanceof VarTag ? (string) $var->getType() : null;
-    }
-
-    private function getFirstTag(DocBlock $docBlock, /*string */$name)/*: ?Tag*/
-    {
-        $tags = $docBlock->getTagsByName($name);
-
-        return isset($tags[0]) ? $tags[0] : null;
-    }
-
-    private function resolveType($type, \ReflectionProperty $propertyReflection)
+    /**
+     * @internal
+     * @param mixed $type
+     */
+    public function resolveType($type, \ReflectionProperty $propertyReflection)
     {
         $class = $propertyReflection->getDeclaringClass();
-        foreach ($class->getTraits() as $trait) {
-            if ($trait->hasProperty($propertyReflection->getName())) {
-                $class = $trait;
-            }
-        }
 
         $resolvedType = \array_reduce($this->parseUseStatements($class), function ($type, $fqcn) {
             if (\preg_match('#\\\\'.\ltrim(\preg_quote($type, '#'), '\\').'$#', $fqcn)) {
@@ -123,6 +73,64 @@ final class ReflectionExtractor implements Extractor
         }
 
         return $class->getNamespaceName().$type;
+    }
+
+    /**
+     * @return Property[]
+     * @param mixed $filter
+     */
+    private function extractFromReflection(\ReflectionClass $class, /*callable */$filter)/*: array*/
+    {
+        $properties = $this->mapClassToProperties($class, $filter);
+        $parentProperties = $class->getParentClass() ? $this->extractFromReflection($class->getParentClass(), $filter) : array();
+
+        return \array_merge($properties, $parentProperties);
+    }
+
+    /**
+     * @return Property[]
+     * @param mixed $filter
+     */
+    private function mapClassToProperties(\ReflectionClass $class, /*callable */$filter)/*: array*/
+    {
+        return \array_filter(
+            \array_map($this->propertyFactory($class), $class->getProperties()),
+            $this->buildFilter($filter)
+        );
+    }
+
+    private function propertyFactory(\ReflectionClass $class)/*: callable*/
+    {
+        $self = $this;
+
+        return function (\ReflectionProperty $propertyReflection) use ($class, $self)/*: ?Property*/ {
+            if ($propertyReflection->getDeclaringClass()->getName() === $class->getName()) {
+                return $self->createProperty($propertyReflection);
+            }
+
+            return null;
+        };
+    }
+
+    private function buildFilter(/*callable */$filter)/*: callable*/
+    {
+        return function ($property) use ($filter)/*: bool*/ {
+            return $property instanceof Property && $filter($property);
+        };
+    }
+
+    private function extractVar(DocBlock $docBlock)/*: ?string*/
+    {
+        $var = $this->getFirstTag($docBlock, 'var');
+
+        return $var instanceof VarTag ? (string) $var->getType() : null;
+    }
+
+    private function getFirstTag(DocBlock $docBlock, /*string */$name)/*: ?Tag*/
+    {
+        $tags = $docBlock->getTagsByName($name);
+
+        return isset($tags[0]) ? $tags[0] : null;
     }
 
     private function parseUseStatements(\ReflectionClass $class)

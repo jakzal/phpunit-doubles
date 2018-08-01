@@ -14,6 +14,7 @@ class AmbiguousDoubleTest extends TestCase
             $this->setExpectedException('LogicException');
         }
 
-        (new AmbiguousDoubleRunner())->callInitialiseTestDoubles();
+        $runner = new AmbiguousDoubleRunner();
+        $runner->callInitialiseTestDoubles();
     }
 }

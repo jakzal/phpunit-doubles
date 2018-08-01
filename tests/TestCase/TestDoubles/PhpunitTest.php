@@ -3,8 +3,7 @@
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Death;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
@@ -12,10 +11,8 @@ use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
-class PhpunitTest extends TestCase
+class PhpunitTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Vimes|MockObject
      */
@@ -50,7 +47,7 @@ class PhpunitTest extends TestCase
 
     public function test_mock_objects_verify_expectations()
     {
-        $discworld = new Discworld($this->vimes, [$this->nobby, $this->fred]);
+        $discworld = new Discworld($this->vimes, array($this->nobby, $this->fred));
 
         $this->vimes->expects($this->at(0))->method('recruit')->with($this->nobby);
         $this->vimes->expects($this->at(1))->method('recruit')->with($this->fred);

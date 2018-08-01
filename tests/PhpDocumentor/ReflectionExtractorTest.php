@@ -23,13 +23,9 @@ class ReflectionExtractorTest extends TestCase
         });
 
         $this->assertContainsOnlyInstancesOf('Zalas\PHPUnit\Doubles\Extractor\Property', $properties);
-        $this->assertCount(6, $properties);
-        $this->assertProperty('detritus', ['Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Detritus', 'Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Troll'], $properties[0]);
-        $this->assertProperty('elephant1', ['Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\World\Elephant'], $properties[1]);
-        $this->assertProperty('elephant2', ['Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\World\Elephant'], $properties[2]);
-        $this->assertProperty('elephant3', ['Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\World\Elephant'], $properties[3]);
-        $this->assertProperty('elephant4', ['Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\World\Elephant'], $properties[4]);
-        $this->assertProperty('rincewind', ['Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Rincewind'], $properties[5]);
+        $this->assertCount(2, $properties);
+        $this->assertProperty('detritus', array('Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Detritus', 'Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Troll'), $properties[0]);
+        $this->assertProperty('rincewind', array('Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Rincewind'), $properties[1]);
     }
 
     public function test_it_filters_properties_out()
@@ -42,7 +38,7 @@ class ReflectionExtractorTest extends TestCase
 
         $this->assertContainsOnlyInstancesOf('Zalas\PHPUnit\Doubles\Extractor\Property', $properties);
         $this->assertCount(1, $properties);
-        $this->assertProperty('rincewind', ['Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Rincewind'], $properties[0]);
+        $this->assertProperty('rincewind', array('Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Rincewind'), $properties[0]);
     }
 
     private function assertProperty(/*string */$name, array $types, $property)

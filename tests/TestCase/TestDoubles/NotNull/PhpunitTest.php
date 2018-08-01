@@ -3,15 +3,12 @@
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\NotNull;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 
-class PhpunitTest extends TestCase
+class PhpunitTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Nobby|MockObject
      */

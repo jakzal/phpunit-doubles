@@ -3,15 +3,12 @@
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\AmbiguousDouble;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
-class AmbiguousDoubleRunner extends TestCase
+class AmbiguousDoubleRunner extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Vimes|ObjectProphecy|MockObject
      */

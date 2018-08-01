@@ -2,16 +2,13 @@
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\NotNull;
 
-use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 
-class ProphecyTest extends TestCase
+class ProphecyTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Nobby|ObjectProphecy
      */
