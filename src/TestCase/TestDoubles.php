@@ -22,7 +22,7 @@ trait TestDoubles
     {
         $doubler = new Doubler(
             new ReflectionExtractor(),
-            new PropertyAccessInjector(__CLASS__),
+            new PropertyAccessInjector(),
             [
                 ObjectProphecy::class => function (array $types) {
                     return $this->createTestDoubleWithProphecy($types);
