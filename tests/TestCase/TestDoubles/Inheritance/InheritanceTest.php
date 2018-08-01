@@ -13,10 +13,10 @@ class InheritanceTest extends BaseTestCase
     use TestDoubles;
     use PropertyTrait;
 
-    public function test_it_does_not_initialise_inaccessible_properties()
+    public function test_it_initialises_parent_private_properties()
     {
-        $this->assertFalse(\property_exists($this, 'nobby'), 'Private properties are not inherited');
-        $this->assertNull($this->getNobby(), 'Test doubles are only assigned if accessible');
+        $this->assertFalse(\property_exists($this, 'nobby'), 'Private properties are not created dynamically');
+        $this->assertInstanceOf(ObjectProphecy::class, $this->getNobby(), 'Test doubles are assigned to parent private properties');
     }
 
     public function test_it_initialises_accessible_parent_properties()

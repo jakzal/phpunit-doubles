@@ -39,25 +39,25 @@ class PropertyAccessInjectorTest extends TestCase
         $this->assertSame($vimes, $nightWatch->getCommander());
     }
 
-    public function test_it_does_not_inject_anything_if_property_is_not_accessible()
+    public function test_throws_an_exception_if_property_is_not_defined()
     {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage(\sprintf('The property "%s::nightRecruits" does not exist.', NightWatch::class));
+
         $nightWatch = new NightWatch();
 
         $injector = new PropertyAccessInjector();
-        $injector->inject($nightWatch, 'recruits', new Vimes());
-
-        $this->assertNull($nightWatch->getRecruits());
+        $injector->inject($nightWatch, 'nightRecruits', new Vimes());
     }
 
-    public function test_it_injects_object_into_a_parent_private_property_if_class_context_is_changed()
+    public function test_it_injects_objects_into_parent_private_properties()
     {
+        $nightWatch = new NightWatch();
         $vimes = new Vimes();
-        $nightWatch = new class extends NightWatch {
-        };
 
-        $injector = new PropertyAccessInjector(NightWatch::class);
-        $injector->inject($nightWatch, 'commander', $vimes);
+        $injector = new PropertyAccessInjector();
+        $injector->inject($nightWatch, 'cityRecruits', $vimes);
 
-        $this->assertSame($vimes, $nightWatch->getCommander());
+        $this->assertSame($vimes, $nightWatch->getCityRecruits());
     }
 }
