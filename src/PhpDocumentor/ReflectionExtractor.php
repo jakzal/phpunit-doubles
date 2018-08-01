@@ -2,15 +2,16 @@
 
 namespace Zalas\PHPUnit\Doubles\PhpDocumentor;
 
+use PhpDocReader\PhpParser\UseStatementParser;
 use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlock\Context;
 use phpDocumentor\Reflection\DocBlock\Tag\VarTag;
-use phpDocumentor\Reflection\DocBlockFactory;
 use Zalas\PHPUnit\Doubles\Extractor\Extractor;
 use Zalas\PHPUnit\Doubles\Extractor\Property;
 
 final class ReflectionExtractor implements Extractor
 {
+    private $parsedUseStatements = [];
+
     /**
      * @param object   $object
      * @param callable $filter
@@ -38,23 +39,17 @@ final class ReflectionExtractor implements Extractor
      */
     private function mapClassToProperties(\ReflectionClass $class, callable $filter)/*: array*/
     {
-        $classContext = new Context($class->getName());
-
         return \array_filter(
-            \array_map($this->propertyFactory($class, $classContext), $class->getProperties()),
+            \array_map($this->propertyFactory($class), $class->getProperties()),
             $this->buildFilter($filter)
         );
     }
 
-    private function propertyFactory(\ReflectionClass $class, $classContext)/*: callable*/
+    private function propertyFactory(\ReflectionClass $class)/*: callable*/
     {
-        return function (\ReflectionProperty $propertyReflection) use ($classContext, $class)/*: ?Property*/ {
-            $context = $this->getTraitContextIfExists($propertyReflection);
-
-            $context = $context ? $context : new Context($propertyReflection->getDeclaringClass()->getName());
-
+        return function (\ReflectionProperty $propertyReflection) use ($class)/*: ?Property*/ {
             if ($propertyReflection->getDeclaringClass()->getName() === $class->getName()) {
-                return $this->createProperty($propertyReflection, $context);
+                return $this->createProperty($propertyReflection);
             }
 
             return null;
@@ -68,28 +63,21 @@ final class ReflectionExtractor implements Extractor
         };
     }
 
-    private function getTraitContextIfExists(\ReflectionProperty $propertyReflection)/*: ?Context*/
-    {
-        foreach ($propertyReflection->getDeclaringClass()->getTraits() as $trait) {
-            if ($trait->hasProperty($propertyReflection->getName())) {
-                return new Context($trait->getName());
-            }
-        }
-
-        return null;
-    }
-
-    private function createProperty(\ReflectionProperty $propertyReflection/*, DocBlockFactory $docBlockFactory*/, Context $context)/*: ?Property*/
+    private function createProperty(\ReflectionProperty $propertyReflection)/*: ?Property*/
     {
         if ($propertyReflection->getDocComment()) {
-            $docBlock = new DocBlock($propertyReflection, $context);
+            $docBlock = new DocBlock($propertyReflection);
             $var = $this->extractVar($docBlock);
+
+            if (\in_array($var, ['bool', 'boolean', 'array', 'string', 'int', 'integer', 'float', 'double', 'mixed', 'null'])) {
+                return null;
+            }
 
             return null !== $var ? new Property(
                 $propertyReflection->getName(),
                 \array_map(
-                    function ($type) {
-                        return \ltrim($type, '\\');
+                    function ($type) use ($propertyReflection) {
+                        return $this->resolveType($type, $propertyReflection);
                     },
                     \explode('|', $var)
                 )
@@ -111,5 +99,40 @@ final class ReflectionExtractor implements Extractor
         $tags = $docBlock->getTagsByName($name);
 
         return isset($tags[0]) ? $tags[0] : null;
+    }
+
+    private function resolveType($type, \ReflectionProperty $propertyReflection)
+    {
+        $class = $propertyReflection->getDeclaringClass();
+        foreach ($class->getTraits() as $trait) {
+            if ($trait->hasProperty($propertyReflection->getName())) {
+                $class = $trait;
+            }
+        }
+
+        $resolvedType = \array_reduce($this->parseUseStatements($class), function ($type, $fqcn) {
+            if (\preg_match('#\\\\'.\ltrim(\preg_quote($type, '#'), '\\').'$#', $fqcn)) {
+                return $fqcn;
+            }
+
+            return $type;
+        }, $type);
+
+        if ($resolvedType !== $type) {
+            return \ltrim($resolvedType, '\\');
+        }
+
+        return $class->getNamespaceName().$type;
+    }
+
+    private function parseUseStatements(\ReflectionClass $class)
+    {
+        if (isset($this->parsedUseStatements[$class->getName()])) {
+            return $this->parsedUseStatements[$class->getName()];
+        }
+
+        $parser = new UseStatementParser();
+
+        return $this->parsedUseStatements[$class->getName()] = $parser->parseUseStatements($class);
     }
 }
