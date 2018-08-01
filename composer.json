@@ -3,9 +3,9 @@
     "description": "Initialises test doubles in PHPUnit test cases for you",
     "type": "library",
     "require": {
-        "php": "~5.6.0",
-        "phpunit/phpunit": "^5.0",
-        "phpdocumentor/reflection-docblock": "^3.3.2"
+        "php": "~5.5.0",
+        "phpunit/phpunit": "^4.0",
+        "phpdocumentor/reflection-docblock": "^3.0"
     },
     "require-dev": {
     },

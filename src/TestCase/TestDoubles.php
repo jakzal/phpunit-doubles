@@ -61,7 +61,6 @@ trait TestDoubles
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disableProxyingToOriginalMethods()
-            ->disallowMockingUnknownTypes()
             ->getMock();
     }
 }

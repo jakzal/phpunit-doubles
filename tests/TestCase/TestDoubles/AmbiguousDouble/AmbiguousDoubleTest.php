@@ -8,7 +8,11 @@ class AmbiguousDoubleTest extends TestCase
 {
     public function test_it_throws_an_exception_if_test_double_framework_is_ambiguous()
     {
-        $this->expectException(\LogicException::class);
+        if (\method_exists($this, 'expectException')) {
+            $this->expectException(\LogicException::class);
+        } else {
+            $this->setExpectedException(\LogicException::class);
+        }
 
         (new AmbiguousDoubleRunner())->callInitialiseTestDoubles();
     }

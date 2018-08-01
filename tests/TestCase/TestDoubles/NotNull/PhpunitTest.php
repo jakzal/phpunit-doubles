@@ -28,7 +28,11 @@ class PhpunitTest extends TestCase
      */
     public function crateNobby()
     {
-        $this->nobby = $this->createMock(Copper::class);
+        if (\method_exists($this, 'createMock')) {
+            $this->nobby = $this->createMock(Copper::class);
+        } else {
+            $this->nobby = $this->getMock(Copper::class);
+        }
     }
 
     public function test_properties_already_initialised_with_hooks_are_not_overridden()
