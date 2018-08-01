@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\Extractor;
 
@@ -30,7 +29,7 @@ class PropertyTest extends TestCase
     {
         $property = new Property('nobby', [ObjectProphecy::class, MockObject::class]);
 
-        $types = $property->getTypesFiltered(function (string $type) {
+        $types = $property->getTypesFiltered(function (/*string */$type) {
             return MockObject::class !== $type;
         });
 

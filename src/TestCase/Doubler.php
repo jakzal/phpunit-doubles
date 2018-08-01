@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\TestCase;
 
@@ -46,7 +45,7 @@ class Doubler
         $doubleType = $this->getDoubleType($property);
         $allDoubleTypes = \array_keys($this->doubleFactories);
 
-        return $this->doubleFactories[$doubleType]($property->getTypesFiltered(function (string $type) use ($allDoubleTypes): bool {
+        return $this->doubleFactories[$doubleType]($property->getTypesFiltered(function (/*string */$type) use ($allDoubleTypes)/*: bool*/ {
             return !\in_array($type, $allDoubleTypes);
         }));
     }
@@ -56,12 +55,12 @@ class Doubler
      *
      * @return Property[]
      */
-    private function getTestDoubleProperties(/*object */$testCase): array
+    private function getTestDoubleProperties(/*object */$testCase)/*: array*/
     {
         $supportedDoubles = \array_keys($this->doubleFactories);
 
-        return $this->extractor->extract($testCase, function (Property $property) use ($supportedDoubles): bool {
-            $doubleTypes = $property->getTypesFiltered(function (string $type) use ($supportedDoubles): bool {
+        return $this->extractor->extract($testCase, function (Property $property) use ($supportedDoubles)/*: bool*/ {
+            $doubleTypes = $property->getTypesFiltered(function (/*string */$type) use ($supportedDoubles)/*: bool*/ {
                 return \in_array($type, $supportedDoubles);
             });
 
@@ -69,10 +68,10 @@ class Doubler
         });
     }
 
-    private function getDoubleType(Property $property): string
+    private function getDoubleType(Property $property)/*: string*/
     {
         $supportedDoubles = \array_keys($this->doubleFactories);
-        $doubleTypes = $property->getTypesFiltered(function (string $type) use ($supportedDoubles): bool {
+        $doubleTypes = $property->getTypesFiltered(function (/*string */$type) use ($supportedDoubles)/*: bool*/ {
             return \in_array($type, $supportedDoubles);
         });
 

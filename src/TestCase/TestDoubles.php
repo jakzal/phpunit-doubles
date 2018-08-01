@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\TestCase;
 
@@ -7,6 +6,10 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\Injector\PropertyAccessInjector;
 use Zalas\PHPUnit\Doubles\PhpDocumentor\ReflectionExtractor;
+
+if (!\class_exists(MockObject::class)) {
+    \class_alias('PHPUnit_Framework_MockObject_MockObject', 'PHPUnit\Framework\MockObject\MockObject');
+}
 
 trait TestDoubles
 {
@@ -34,7 +37,7 @@ trait TestDoubles
         $doubler->createDoubles($this);
     }
 
-    private function createTestDoubleWithProphecy(array $types): ObjectProphecy
+    private function createTestDoubleWithProphecy(array $types)/*: ObjectProphecy*/
     {
         $prophecy = $this->prophesize(\array_shift($types));
 
@@ -49,7 +52,7 @@ trait TestDoubles
         return $prophecy;
     }
 
-    private function createTestDoubleWithPhpunit(array $types): MockObject
+    private function createTestDoubleWithPhpunit(array $types)/*: MockObject*/
     {
         $normalisedTypes = 1 === \count($types) ? \array_pop($types) : (!empty($types) ? $types : \stdClass::class);
 

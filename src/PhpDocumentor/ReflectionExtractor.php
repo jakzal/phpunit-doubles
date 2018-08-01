@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\PhpDocumentor;
 
@@ -19,7 +18,7 @@ final class ReflectionExtractor implements Extractor
      *
      * @return Property[]
      */
-    public function extract(/*object */$object, callable $filter): array
+    public function extract(/*object */$object, callable $filter)/*: array*/
     {
         return $this->extractFromReflection(new \ReflectionClass($object), $filter);
     }
@@ -27,7 +26,7 @@ final class ReflectionExtractor implements Extractor
     /**
      * @return Property[]
      */
-    private function extractFromReflection(\ReflectionClass $class, callable $filter): array
+    private function extractFromReflection(\ReflectionClass $class, callable $filter)/*: array*/
     {
         $properties = $this->mapClassToProperties($class, $filter);
         $parentProperties = $class->getParentClass() ? $this->extractFromReflection($class->getParentClass(), $filter) : [];
@@ -38,7 +37,7 @@ final class ReflectionExtractor implements Extractor
     /**
      * @return Property[]
      */
-    private function mapClassToProperties(\ReflectionClass $class, callable $filter): array
+    private function mapClassToProperties(\ReflectionClass $class, callable $filter)/*: array*/
     {
         $docBlockFactory = DocBlockFactory::createInstance();
         $classContext = (new ContextFactory())->createFromReflector($class);
@@ -49,10 +48,11 @@ final class ReflectionExtractor implements Extractor
         );
     }
 
-    private function propertyFactory(\ReflectionClass $class, $docBlockFactory, $classContext): callable
+    private function propertyFactory(\ReflectionClass $class, $docBlockFactory, $classContext)/*: callable*/
     {
         return function (\ReflectionProperty $propertyReflection) use ($docBlockFactory, $classContext, $class)/*: ?Property*/ {
-            $context = $this->getTraitContextIfExists($propertyReflection) ?? $classContext;
+            $context = $this->getTraitContextIfExists($propertyReflection);
+            $context = $context ? $context : $classContext;
 
             if ($propertyReflection->getDeclaringClass()->getName() === $class->getName()) {
                 return $this->createProperty($propertyReflection, $docBlockFactory, $context);
@@ -62,9 +62,9 @@ final class ReflectionExtractor implements Extractor
         };
     }
 
-    private function buildFilter(callable $filter): callable
+    private function buildFilter(callable $filter)/*: callable*/
     {
-        return function ($property) use ($filter): bool {
+        return function ($property) use ($filter)/*: bool*/ {
             return $property instanceof Property && $filter($property);
         };
     }
@@ -106,10 +106,10 @@ final class ReflectionExtractor implements Extractor
         return $var instanceof Var_ ? (string) $var->getType() : null;
     }
 
-    private function getFirstTag(DocBlock $docBlock, string $name)/*: ?Tag*/
+    private function getFirstTag(DocBlock $docBlock, /*string */$name)/*: ?Tag*/
     {
         $tags = $docBlock->getTagsByName($name);
 
-        return $tags[0] ?? null;
+        return isset($tags[0]) ? $tags[0] : null;
     }
 }

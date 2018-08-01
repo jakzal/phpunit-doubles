@@ -3,7 +3,7 @@ inherit: true
 build:
     environment:
         php:
-            version: 7.0
+            version: 5.6
     tests:
         override:
             - make test

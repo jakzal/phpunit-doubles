@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\PhpDocumentor;
 
@@ -51,7 +50,7 @@ class ReflectionExtractorTest extends TestCase
         $this->assertProperty('rincewind', [Rincewind::class], $properties[0]);
     }
 
-    private function assertProperty(string $name, array $types, $property)
+    private function assertProperty(/*string */$name, array $types, $property)
     {
         $this->assertSame($name, $property->getName());
         $this->assertSame($types, $property->getTypes());
