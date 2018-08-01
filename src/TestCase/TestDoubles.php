@@ -6,7 +6,7 @@ namespace Zalas\PHPUnit\Doubles\TestCase;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\Extractor\Property;
+use Zalas\PHPUnit\Doubles\Injector\PropertyAccessInjector;
 use Zalas\PHPUnit\Doubles\PhpDocumentor\ReflectionExtractor;
 
 trait TestDoubles
@@ -20,30 +20,19 @@ trait TestDoubles
      */
     protected function initialiseTestDoubles(): void
     {
-        foreach ($this->getTestDoubleProperties() as $property) {
-            if (\property_exists($this, $property->getName()) && null === $this->{$property->getName()}) {
-                $this->{$property->getName()} = $this->createTestDouble($property);
-            }
-        }
-    }
-
-    private function createTestDouble(Property $property)
-    {
-        if ($property->hasType(ObjectProphecy::class) && $property->hasType(MockObject::class)) {
-            throw new \LogicException(\sprintf('Ambiguous test double definition for "%s": "%s".', $property->getName(), \implode('|', $property->getTypes())));
-        }
-
-        if ($property->hasType(ObjectProphecy::class)) {
-            return $this->createTestDoubleWithProphecy($property->getTypesFiltered(function (string $type) {
-                return ObjectProphecy::class !== $type;
-            }));
-        }
-
-        if ($property->hasType(MockObject::class)) {
-            return $this->createTestDoubleWithPhpunit($property->getTypesFiltered(function (string $type) {
-                return MockObject::class !== $type;
-            }));
-        }
+        $doubler = new Doubler(
+            new ReflectionExtractor(),
+            new PropertyAccessInjector(__CLASS__),
+            [
+                ObjectProphecy::class => function (array $types) {
+                    return $this->createTestDoubleWithProphecy($types);
+                },
+                MockObject::class => function (array $types) {
+                    return $this->createTestDoubleWithPhpunit($types);
+                },
+            ]
+        );
+        $doubler->createDoubles($this);
     }
 
     private function createTestDoubleWithProphecy(array $types): ObjectProphecy
@@ -72,15 +61,5 @@ trait TestDoubles
             ->disableProxyingToOriginalMethods()
             ->disallowMockingUnknownTypes()
             ->getMock();
-    }
-
-    /**
-     * @return Property[]
-     */
-    private function getTestDoubleProperties(): array
-    {
-        return (new ReflectionExtractor())->extract($this, function (Property $property) {
-            return $property->hasType(ObjectProphecy::class) || $property->hasType(MockObject::class);
-        });
     }
 }
