@@ -17,7 +17,7 @@ class PhpunitTest extends TestCase
 
     public function test_it_creates_std_class_if_type_is_missing()
     {
-        $this->assertInstanceOf(MockObject::class, $this->fred);
-        $this->assertInstanceOf(\stdClass::class, $this->fred);
+        $this->assertInstanceOf('PHPUnit\Framework\MockObject\MockObject', $this->fred);
+        $this->assertInstanceOf('stdClass', $this->fred);
     }
 }

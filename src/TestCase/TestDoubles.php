@@ -7,7 +7,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\Injector\PropertyAccessInjector;
 use Zalas\PHPUnit\Doubles\PhpDocumentor\ReflectionExtractor;
 
-if (!\class_exists(MockObject::class)) {
+if (!\class_exists('PHPUnit\Framework\MockObject\MockObject')) {
     \class_alias('PHPUnit_Framework_MockObject_MockObject', 'PHPUnit\Framework\MockObject\MockObject');
 }
 
@@ -26,10 +26,10 @@ trait TestDoubles
             new ReflectionExtractor(),
             new PropertyAccessInjector(),
             [
-                ObjectProphecy::class => function (array $types) {
+                'Prophecy\Prophecy\ObjectProphecy' => function (array $types) {
                     return $this->createTestDoubleWithProphecy($types);
                 },
-                MockObject::class => function (array $types) {
+                'PHPUnit\Framework\MockObject\MockObject' => function (array $types) {
                     return $this->createTestDoubleWithPhpunit($types);
                 },
             ]
@@ -54,7 +54,7 @@ trait TestDoubles
 
     private function createTestDoubleWithPhpunit(array $types)/*: MockObject*/
     {
-        $normalisedTypes = 1 === \count($types) ? \array_pop($types) : (!empty($types) ? $types : \stdClass::class);
+        $normalisedTypes = 1 === \count($types) ? \array_pop($types) : (!empty($types) ? $types : 'stdClass');
 
         return $this->getMockBuilder($normalisedTypes)
             ->disableOriginalConstructor()

@@ -38,14 +38,14 @@ class PhpunitTest extends TestCase
 
     public function test_it_initialises_mock_objects()
     {
-        $this->assertInstanceOf(MockObject::class, $this->vimes);
-        $this->assertInstanceOf(MockObject::class, $this->nobby);
-        $this->assertInstanceOf(MockObject::class, $this->fred);
-        $this->assertInstanceOf(Vimes::class, $this->vimes);
-        $this->assertInstanceOf(Nobby::class, $this->nobby);
-        $this->assertInstanceOf(Fred::class, $this->fred);
-        $this->assertInstanceOf(Copper::class, $this->nobby);
-        $this->assertInstanceOf(Copper::class, $this->fred);
+        $this->assertInstanceOf('PHPUnit\Framework\MockObject\MockObject', $this->vimes);
+        $this->assertInstanceOf('PHPUnit\Framework\MockObject\MockObject', $this->nobby);
+        $this->assertInstanceOf('PHPUnit\Framework\MockObject\MockObject', $this->fred);
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes', $this->vimes);
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby', $this->nobby);
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred', $this->fred);
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper', $this->nobby);
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper', $this->fred);
     }
 
     public function test_mock_objects_verify_expectations()
