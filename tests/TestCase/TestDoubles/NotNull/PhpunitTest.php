@@ -1,19 +1,14 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\NotNull;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 
-class PhpunitTest extends TestCase
+class PhpunitTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Nobby|MockObject
      */
@@ -29,14 +24,18 @@ class PhpunitTest extends TestCase
      */
     public function crateNobby()
     {
-        $this->nobby = $this->createMock(Copper::class);
+        if (\method_exists($this, 'createMock')) {
+            $this->nobby = $this->createMock('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper');
+        } else {
+            $this->nobby = $this->getMock('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper');
+        }
     }
 
     public function test_properties_already_initialised_with_hooks_are_not_overridden()
     {
-        $this->assertInstanceOf(MockObject::class, $this->nobby);
-        $this->assertInstanceOf(Copper::class, $this->nobby);
-        $this->assertNotInstanceOf(Nobby::class, $this->nobby);
+        $this->assertInstanceOf('PHPUnit\Framework\MockObject\MockObject', $this->nobby);
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper', $this->nobby);
+        $this->assertNotInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby', $this->nobby);
     }
 
     public function test_properties_already_initialised_directly_are_not_overridden()

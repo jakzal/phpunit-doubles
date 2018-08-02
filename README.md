@@ -5,6 +5,10 @@
 
 Initialises test doubles in PHPUnit test cases for you.
 
+**Warning**: Note this is a backport of the library originally written for PHP >=7.1.
+Things might not work as expected and they definitely work a lot slower than the original version.
+If you're interested in optimising this branch, look into the `ReflectionExtractor` class.
+
 ## Installation
 
 ### Composer
@@ -13,24 +17,9 @@ Initialises test doubles in PHPUnit test cases for you.
 composer require --dev zalas/phpunit-doubles
 ```
 
-### Phar
-
-The extension is also distributed as a PHAR, which can be downloaded from the most recent
-[Github Release](https://github.com/jakzal/phpunit-doubles/releases).
-
-Put the extension in your PHPUnit extensions directory.
-Remember to instruct PHPUnit to load extensions in your `phpunit.xml`:
-
-```xml
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
-         extensionsDirectory="tools/phpunit.d"
->
-</phpunit>
-```
-
 ## Usage
 
-Include the `Zalas\PHPUnit\Doubles\TestCase\TestDoubles` trait to have your test doubles initialised
+Extend the `Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase` to have your test doubles initialised
 in one of the supported test doubling frameworks.
 
 Both the type of test double and the kind of test doubling framework are taken from the property type:
@@ -52,14 +41,11 @@ Currently, two test doubling frameworks are supported:
 ```php
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 
-class DiscworldTest extends TestCase
+class DiscworldTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Vimes|ObjectProphecy
      */
@@ -88,13 +74,10 @@ class DiscworldTest extends TestCase
 <?php
 
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 
-class DiscworldTest extends TestCase
+class DiscworldTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Vimes|MockObject
      */

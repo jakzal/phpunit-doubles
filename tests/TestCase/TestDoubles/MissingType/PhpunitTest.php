@@ -1,16 +1,12 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\MissingType;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 
-class PhpunitTest extends TestCase
+class PhpunitTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var MockObject
      */
@@ -18,7 +14,7 @@ class PhpunitTest extends TestCase
 
     public function test_it_creates_std_class_if_type_is_missing()
     {
-        $this->assertInstanceOf(MockObject::class, $this->fred);
-        $this->assertInstanceOf(\stdClass::class, $this->fred);
+        $this->assertInstanceOf('PHPUnit\Framework\MockObject\MockObject', $this->fred);
+        $this->assertInstanceOf('stdClass', $this->fred);
     }
 }

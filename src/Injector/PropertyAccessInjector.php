@@ -1,32 +1,26 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Injector;
 
 final class PropertyAccessInjector implements Injector
 {
-    public function inject(/*object */$target, string $property, /*object */$object): void
+    public function inject(/*object */$target, /*string */$property, /*object */$object)/*: void*/
     {
-        $this->createInjector($target, $property)($object);
-    }
-
-    private function createInjector(/*object */$target, string $property): \Closure
-    {
-        $injector = function (/*object */$object) use ($property): void {
-            if (null === $this->$property) {
-                $this->$property = $object;
-            }
-        };
-
-        return $injector->bindTo($target, $this->findScope($target, $property));
+        $class = new \ReflectionClass($this->findScope($target, $property));
+        $propertyReflection = $class->getProperty($property);
+        $propertyReflection->setAccessible(true);
+        if (null === $propertyReflection->getValue($target)) {
+            $propertyReflection->setValue($target, $object);
+        }
     }
 
     /**
      * @param object $target
+     * @param string $property
      *
      * @return object|string
      */
-    private function findScope(/*object */$target, string $property)
+    private function findScope(/*object */$target, /*string */$property)
     {
         if (\property_exists($target, $property)) {
             return $target;
@@ -35,7 +29,7 @@ final class PropertyAccessInjector implements Injector
         return $this->findParentScope($target, $property);
     }
 
-    private function findParentScope(/*object */$target, string $property): string
+    private function findParentScope(/*object */$target, /*string */$property)/*: string*/
     {
         $class = \get_parent_class($target);
 

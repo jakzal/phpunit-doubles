@@ -1,21 +1,17 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles;
 
-use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
-class ProphecyTest extends TestCase
+class ProphecyTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Vimes|ObjectProphecy
      */
@@ -38,19 +34,19 @@ class ProphecyTest extends TestCase
 
     public function test_it_initialises_object_prophecies()
     {
-        $this->assertInstanceOf(ObjectProphecy::class, $this->vimes);
-        $this->assertInstanceOf(ObjectProphecy::class, $this->nobby);
-        $this->assertInstanceOf(ObjectProphecy::class, $this->fred);
-        $this->assertInstanceOf(Vimes::class, $this->vimes->reveal());
-        $this->assertInstanceOf(Nobby::class, $this->nobby->reveal());
-        $this->assertInstanceOf(Fred::class, $this->fred->reveal());
-        $this->assertInstanceOf(Copper::class, $this->nobby->reveal());
-        $this->assertInstanceOf(Copper::class, $this->fred->reveal());
+        $this->assertInstanceOf('Prophecy\Prophecy\ObjectProphecy', $this->vimes);
+        $this->assertInstanceOf('Prophecy\Prophecy\ObjectProphecy', $this->nobby);
+        $this->assertInstanceOf('Prophecy\Prophecy\ObjectProphecy', $this->fred);
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes', $this->vimes->reveal());
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby', $this->nobby->reveal());
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred', $this->fred->reveal());
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper', $this->nobby->reveal());
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper', $this->fred->reveal());
     }
 
     public function test_object_prophecies_verify_expectations()
     {
-        $discworld = new Discworld($this->vimes->reveal(), [$this->nobby->reveal(), $this->fred->reveal()]);
+        $discworld = new Discworld($this->vimes->reveal(), array($this->nobby->reveal(), $this->fred->reveal()));
 
         $discworld->createNightWatch();
 

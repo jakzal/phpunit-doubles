@@ -1,33 +1,38 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Inheritance;
 
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
-class InheritanceTest extends BaseTestCase
+class InheritanceTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-    use PropertyTrait;
 
-    public function test_it_initialises_parent_private_properties()
+    /**
+     * @var Fred|ObjectProphecy
+     */
+    protected $fred;
+    /**
+     * @var Vimes|ObjectProphecy
+     */
+    private $vimes;
+
+    /**
+     * @var Nobby|ObjectProphecy
+     */
+    private $nobby;
+
+    public function test_it_initialises_current_class_properties()
     {
-        $this->assertFalse(\property_exists($this, 'nobby'), 'Private properties are not created dynamically');
-        $this->assertInstanceOf(ObjectProphecy::class, $this->getNobby(), 'Test doubles are assigned to parent private properties');
+        $this->assertInstanceOf('Prophecy\Prophecy\ObjectProphecy', $this->vimes);
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes', $this->vimes->reveal());
     }
 
-    public function test_it_initialises_accessible_parent_properties()
+    public function getNobby()
     {
-        $this->assertInstanceOf(ObjectProphecy::class, $this->fred);
-        $this->assertInstanceOf(Fred::class, $this->fred->reveal());
-    }
-
-    public function test_it_initialises_accessible_trait_properties()
-    {
-        $this->assertInstanceOf(ObjectProphecy::class, $this->vimes);
-        $this->assertInstanceOf(Vimes::class, $this->vimes->reveal());
+        return $this->nobby;
     }
 }

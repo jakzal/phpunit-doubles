@@ -1,10 +1,8 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\Injector;
 
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\Injector\Injector;
 use Zalas\PHPUnit\Doubles\Injector\PropertyAccessInjector;
 use Zalas\PHPUnit\Doubles\Tests\Injector\Fixtures\NightWatch;
 use Zalas\PHPUnit\Doubles\Tests\Injector\Fixtures\Vimes;
@@ -13,7 +11,7 @@ class PropertyAccessInjectorTest extends TestCase
 {
     public function test_it_is_an_injector()
     {
-        $this->assertInstanceOf(Injector::class, new PropertyAccessInjector());
+        $this->assertInstanceOf('Zalas\PHPUnit\Doubles\Injector\Injector', new PropertyAccessInjector());
     }
 
     public function test_it_injects_object_directly_into_a_property()
@@ -41,8 +39,12 @@ class PropertyAccessInjectorTest extends TestCase
 
     public function test_throws_an_exception_if_property_is_not_defined()
     {
-        $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage(\sprintf('The property "%s::nightRecruits" does not exist.', NightWatch::class));
+        if (\method_exists($this, 'expectException')) {
+            $this->expectException('LogicException');
+            $this->expectExceptionMessage(\sprintf('The property "%s::nightRecruits" does not exist.', 'Zalas\PHPUnit\Doubles\Tests\Injector\Fixtures\NightWatch'));
+        } else {
+            $this->setExpectedException('LogicException', \sprintf('The property "%s::nightRecruits" does not exist.', 'Zalas\PHPUnit\Doubles\Tests\Injector\Fixtures\NightWatch'));
+        }
 
         $nightWatch = new NightWatch();
 

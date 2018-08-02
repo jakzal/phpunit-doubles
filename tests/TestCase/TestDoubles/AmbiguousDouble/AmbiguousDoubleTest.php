@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\AmbiguousDouble;
 
@@ -9,8 +8,13 @@ class AmbiguousDoubleTest extends TestCase
 {
     public function test_it_throws_an_exception_if_test_double_framework_is_ambiguous()
     {
-        $this->expectException(\LogicException::class);
+        if (\method_exists($this, 'expectException')) {
+            $this->expectException('LogicException');
+        } else {
+            $this->setExpectedException('LogicException');
+        }
 
-        (new AmbiguousDoubleRunner())->callInitialiseTestDoubles();
+        $runner = new AmbiguousDoubleRunner();
+        $runner->callInitialiseTestDoubles();
     }
 }
