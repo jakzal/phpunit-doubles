@@ -2,7 +2,7 @@ dist: precise
 language: php
 matrix:
   include:
-  - php: 5.3
+  - php: 5.4
     env: deps=low
   - php: 5.3
     env: deps=high
