@@ -5,6 +5,10 @@
 
 Initialises test doubles in PHPUnit test cases for you.
 
+**Warning**: Note this is a backport of the library originally written for PHP >=7.1.
+Things might not work as expected and they definitely work a lot slower than the original version.
+If you're interested in optimising this branch, look into the `ReflectionExtractor` class.
+
 ## Installation
 
 ### Composer
@@ -15,7 +19,7 @@ composer require --dev zalas/phpunit-doubles
 
 ## Usage
 
-Include the `Zalas\PHPUnit\Doubles\TestCase\TestDoubles` trait to have your test doubles initialised
+Extend the `Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase` to have your test doubles initialised
 in one of the supported test doubling frameworks.
 
 Both the type of test double and the kind of test doubling framework are taken from the property type:
@@ -37,14 +41,11 @@ Currently, two test doubling frameworks are supported:
 ```php
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 
-class DiscworldTest extends TestCase
+class DiscworldTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Vimes|ObjectProphecy
      */
@@ -73,13 +74,10 @@ class DiscworldTest extends TestCase
 <?php
 
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\TestDoublesTestCase;
 
-class DiscworldTest extends TestCase
+class DiscworldTest extends TestDoublesTestCase
 {
-    use TestDoubles;
-
     /**
      * @var Vimes|MockObject
      */

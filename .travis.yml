@@ -4,6 +4,8 @@ matrix:
   include:
   - php: 5.3
     env: deps=low
+  - php: 5.3
+    env: deps=high
   fast_finish: true
 before_install:
 - phpenv config-rm xdebug.ini
