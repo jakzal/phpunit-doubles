@@ -5,6 +5,9 @@
 
 Initialises test doubles in PHPUnit test cases for you.
 
+**Warning**: Note this branch is a backport of the library originally written for PHP >=7.1.
+Things might not work as expected.
+
 ## Installation
 
 ### Composer
