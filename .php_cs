@@ -7,8 +7,7 @@ $finder = PhpCsFixer\Finder::create()
 return PhpCsFixer\Config::create()
     ->setRules([
         '@PSR2' => true,
-        'array_syntax' => ['syntax' => 'short'],
-        'declare_strict_types' => true,
+        'declare_strict_types' => false,
         'native_function_invocation' => true,
         'no_empty_comment' => true,
         'no_empty_phpdoc' => true,
@@ -24,7 +23,7 @@ return PhpCsFixer\Config::create()
         'protected_to_private' => true,
         'strict_comparison' => true,
         'ternary_operator_spaces' => true,
-        'ternary_to_null_coalescing' => true,
+        'ternary_to_null_coalescing' => false,
     ])
     ->setFinder($finder)
 ;
