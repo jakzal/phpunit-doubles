@@ -1,24 +1,26 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\TestCase;
 
-use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\Injector\PropertyAccessInjector;
 use Zalas\PHPUnit\Doubles\PhpDocumentor\ReflectionExtractor;
 
+if (!\class_exists(MockObject::class)) {
+    \class_alias('PHPUnit_Framework_MockObject_MockObject', 'PHPUnit\Framework\MockObject\MockObject');
+}
+
 trait TestDoubles
 {
-    abstract public function getMockBuilder($className): MockBuilder;
+    abstract public function getMockBuilder($className)/*: MockBuilder;*/;
 
-    abstract protected function prophesize($classOrInterface = null): ObjectProphecy;
+    abstract protected function prophesize($classOrInterface = null)/*: ObjectProphecy*/;
 
     /**
      * @before
      */
-    protected function initialiseTestDoubles(): void
+    protected function initialiseTestDoubles()/*: void*/
     {
         $doubler = new Doubler(
             new ReflectionExtractor(),
@@ -35,7 +37,7 @@ trait TestDoubles
         $doubler->createDoubles($this);
     }
 
-    private function createTestDoubleWithProphecy(array $types): ObjectProphecy
+    private function createTestDoubleWithProphecy(array $types)/*: ObjectProphecy*/
     {
         $prophecy = $this->prophesize(\array_shift($types));
 
@@ -50,7 +52,7 @@ trait TestDoubles
         return $prophecy;
     }
 
-    private function createTestDoubleWithPhpunit(array $types): MockObject
+    private function createTestDoubleWithPhpunit(array $types)/*: MockObject*/
     {
         $normalisedTypes = 1 === \count($types) ? \array_pop($types) : (!empty($types) ? $types : \stdClass::class);
 
@@ -59,7 +61,6 @@ trait TestDoubles
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disableProxyingToOriginalMethods()
-            ->disallowMockingUnknownTypes()
             ->getMock();
     }
 }

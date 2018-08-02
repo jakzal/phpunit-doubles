@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Extractor;
 
@@ -15,5 +14,5 @@ interface Extractor
      *
      * @return Property[]
      */
-    public function extract(/*object */$object, callable $filter): array;
+    public function extract(/*object */$object, callable $filter)/*: array*/;
 }

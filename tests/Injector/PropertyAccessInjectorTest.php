@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\Injector;
 
@@ -41,8 +40,12 @@ class PropertyAccessInjectorTest extends TestCase
 
     public function test_throws_an_exception_if_property_is_not_defined()
     {
-        $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage(\sprintf('The property "%s::nightRecruits" does not exist.', NightWatch::class));
+        if (\method_exists($this, 'expectException')) {
+            $this->expectException(\LogicException::class);
+            $this->expectExceptionMessage(\sprintf('The property "%s::nightRecruits" does not exist.', NightWatch::class));
+        } else {
+            $this->setExpectedException(\LogicException::class, \sprintf('The property "%s::nightRecruits" does not exist.', NightWatch::class));
+        }
 
         $nightWatch = new NightWatch();
 
