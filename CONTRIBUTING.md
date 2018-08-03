@@ -1,6 +1,6 @@
 # Contributing
 
-When contributing to this repository send a new pull request.
+When contributing to this repository send a new pull request against the master branch.
 If your change is big or complex, or you simply want to suggest an improvement,
 please discuss the change you wish to make via an issue.
 
