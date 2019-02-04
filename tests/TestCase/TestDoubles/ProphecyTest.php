@@ -7,8 +7,10 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Death;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Human;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
@@ -22,7 +24,7 @@ class ProphecyTest extends TestCase
     private $vimes;
 
     /**
-     * @var Nobby|Copper|ObjectProphecy
+     * @var Nobby|Copper|Human|ObjectProphecy
      */
     private $nobby;
 
@@ -46,6 +48,7 @@ class ProphecyTest extends TestCase
         $this->assertInstanceOf(Fred::class, $this->fred->reveal());
         $this->assertInstanceOf(Copper::class, $this->nobby->reveal());
         $this->assertInstanceOf(Copper::class, $this->fred->reveal());
+        $this->assertInstanceOf(Human::class, $this->nobby->reveal(), 'Test doubles can both extend classes and implement interfaces.');
     }
 
     public function test_object_prophecies_verify_expectations()
