@@ -41,7 +41,7 @@ class ProphecyTest extends TestCase
 
     public function test_properties_already_initialised_directly_are_not_overridden()
     {
-        $this->assertInternalType('string', $this->fred);
+        $this->assertIsString($this->fred);
         $this->assertSame('Fred', $this->fred);
     }
 }
