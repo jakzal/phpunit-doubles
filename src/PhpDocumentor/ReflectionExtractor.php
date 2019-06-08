@@ -15,6 +15,19 @@ use Zalas\PHPUnit\Doubles\Extractor\Property;
 final class ReflectionExtractor implements Extractor
 {
     /**
+     * @var string[]
+     */
+    private $ignoredClasses;
+
+    /**
+     * @param string[] $ignoredClasses
+     */
+    public function __construct(array $ignoredClasses)
+    {
+        $this->ignoredClasses = $ignoredClasses;
+    }
+
+    /**
      * @param object   $object
      * @param callable $filter
      *
@@ -41,6 +54,10 @@ final class ReflectionExtractor implements Extractor
      */
     private function mapClassToProperties(\ReflectionClass $class, callable $filter): array
     {
+        if (\in_array($class->getName(), $this->ignoredClasses)) {
+            return [];
+        }
+
         $docBlockFactory = DocBlockFactory::createInstance();
         $classContext = (new ContextFactory())->createFromReflector($class);
 

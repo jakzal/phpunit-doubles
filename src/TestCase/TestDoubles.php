@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\TestCase;
 
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\Injector\PropertyAccessInjector;
 use Zalas\PHPUnit\Doubles\PhpDocumentor\ReflectionExtractor;
@@ -21,7 +23,7 @@ trait TestDoubles
     protected function initialiseTestDoubles(): void
     {
         $doubler = new Doubler(
-            new ReflectionExtractor(),
+            new ReflectionExtractor([TestCase::class, Assert::class]),
             new PropertyAccessInjector(),
             [
                 ObjectProphecy::class => function (array $types) {
