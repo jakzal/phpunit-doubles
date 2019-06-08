@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\PhpDocumentor;
 
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\Doubles\Extractor\Extractor;
 use Zalas\PHPUnit\Doubles\Extractor\Property;
@@ -15,16 +16,24 @@ use Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\World\Elephant;
 
 class ReflectionExtractorTest extends TestCase
 {
+    /**
+     * @var ReflectionExtractor
+     */
+    private $extractor;
+
+    protected function setUp(): void
+    {
+        $this->extractor =  new ReflectionExtractor([TestCase::class, Assert::class]);
+    }
+
     public function test_it_is_an_extractor()
     {
-        $this->assertInstanceOf(Extractor::class, new ReflectionExtractor());
+        $this->assertInstanceOf(Extractor::class, $this->extractor);
     }
 
     public function test_it_extracts_properties_from_the_given_object()
     {
-        $extractor = new ReflectionExtractor();
-
-        $properties = $extractor->extract(new Discworld(), function () {
+        $properties = $this->extractor->extract(new Discworld(), function () {
             return true;
         });
 
@@ -40,9 +49,7 @@ class ReflectionExtractorTest extends TestCase
 
     public function test_it_filters_properties_out()
     {
-        $extractor = new ReflectionExtractor();
-
-        $properties = $extractor->extract(new Discworld(), function (Property $property) {
+        $properties = $this->extractor->extract(new Discworld(), function (Property $property) {
             return $property->hasType(Rincewind::class);
         });
 
