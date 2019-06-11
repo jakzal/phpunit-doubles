@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\PhpDocumentor;
 
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\Doubles\Extractor\Extractor;
 use Zalas\PHPUnit\Doubles\Extractor\Property;
@@ -12,6 +11,7 @@ use Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Detritus;
 use Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Rincewind;
 use Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Character\Troll;
 use Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\Discworld;
+use Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\World;
 use Zalas\PHPUnit\Doubles\Tests\PhpDocumentor\Fixtures\World\Elephant;
 
 class ReflectionExtractorTest extends TestCase
@@ -23,7 +23,7 @@ class ReflectionExtractorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->extractor =  new ReflectionExtractor([TestCase::class, Assert::class]);
+        $this->extractor = new ReflectionExtractor([]);
     }
 
     public function test_it_is_an_extractor()
@@ -56,6 +56,18 @@ class ReflectionExtractorTest extends TestCase
         $this->assertContainsOnlyInstancesOf(Property::class, $properties);
         $this->assertCount(1, $properties);
         $this->assertProperty('rincewind', [Rincewind::class], $properties[0]);
+    }
+
+    public function test_it_ignores_properties_by_class()
+    {
+        $this->extractor = new ReflectionExtractor([World::class]);
+
+        $properties = $this->extractor->extract(new Discworld(), function (Property $property) {
+            return true;
+        });
+
+        $this->assertContainsOnlyInstancesOf(Property::class, $properties);
+        $this->assertCount(5, $properties);
     }
 
     private function assertProperty(string $name, array $types, $property)
