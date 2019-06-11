@@ -10,6 +10,11 @@
     },
     "mutators": {
         "@default": true,
+        "ArrayItemRemoval": {
+            "ignore": [
+                "Zalas\\PHPUnit\\Doubles\\TestCase\\TestDoubles::initialiseTestDoubles"
+            ]
+        },
         "IdenticalEqual": false,
         "NotIdenticalNotEqual": false
     }
