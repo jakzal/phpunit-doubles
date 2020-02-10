@@ -9,8 +9,6 @@ use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Death;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
-use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
 class PhpunitTest extends TestCase
@@ -23,12 +21,12 @@ class PhpunitTest extends TestCase
     private $vimes;
 
     /**
-     * @var Nobby|Copper|MockObject
+     * @var Copper|MockObject
      */
     private $nobby;
 
     /**
-     * @var Fred|Copper|MockObject
+     * @var Copper|MockObject
      */
     private $fred;
 
@@ -43,8 +41,6 @@ class PhpunitTest extends TestCase
         $this->assertInstanceOf(MockObject::class, $this->nobby);
         $this->assertInstanceOf(MockObject::class, $this->fred);
         $this->assertInstanceOf(Vimes::class, $this->vimes);
-        $this->assertInstanceOf(Nobby::class, $this->nobby);
-        $this->assertInstanceOf(Fred::class, $this->fred);
         $this->assertInstanceOf(Copper::class, $this->nobby);
         $this->assertInstanceOf(Copper::class, $this->fred);
     }
