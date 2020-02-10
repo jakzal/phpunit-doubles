@@ -101,17 +101,17 @@ class DiscworldTest extends TestCase
     private $vimes;
 
     /**
-     * @var Nobby|Fred|MockObject
+     * @var Nobby|MockObject
      */
     private $nobbyAndFred;
 
     public function test_it_hires_new_recruits_for_nightwatch()
     {
-        $discworld = new Discworld($this->vimes, $this->nobbyAndFred);
+        $discworld = new Discworld($this->vimes, $this->nobby);
 
         $this->vimes->expects($this->once())
             ->method('recruit')
-            ->with($this->nobbyAndFred);
+            ->with($this->nobby);
 
         $discworld->createNightWatch();
     }

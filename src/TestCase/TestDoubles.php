@@ -13,7 +13,7 @@ use Zalas\PHPUnit\Doubles\PhpDocumentor\ReflectionExtractor;
 
 trait TestDoubles
 {
-    abstract public function getMockBuilder($className): MockBuilder;
+    abstract public function getMockBuilder(string $className): MockBuilder;
 
     abstract protected function prophesize($classOrInterface = null): ObjectProphecy;
 
@@ -54,7 +54,7 @@ trait TestDoubles
 
     private function createTestDoubleWithPhpunit(array $types): MockObject
     {
-        $normalisedTypes = 1 === \count($types) ? \array_pop($types) : (!empty($types) ? $types : \stdClass::class);
+        $normalisedTypes = \array_shift($types) ?? \stdClass::class;
 
         return $this->getMockBuilder($normalisedTypes)
             ->disableOriginalConstructor()
