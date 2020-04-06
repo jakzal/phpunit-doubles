@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\MissingType;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
 
 class ProphecyTest extends TestCase
 {
+    use ProphecyTrait;
     use TestDoubles;
 
     /**

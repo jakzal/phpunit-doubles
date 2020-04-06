@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Inheritance;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
@@ -10,6 +11,7 @@ use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
 class InheritanceTest extends BaseTestCase
 {
+    use ProphecyTrait;
     use TestDoubles;
     use PropertyTrait;
 

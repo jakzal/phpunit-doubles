@@ -75,7 +75,7 @@ package: tools/box
 
 	cd build/phar && \
 	  composer remove phpunit/phpunit --no-update && \
-	  composer config platform.php 7.2 && \
+	  composer config platform.php 7.3 && \
 	  composer update --no-dev -o -a
 
 	tools/box compile
@@ -97,16 +97,16 @@ tools/deptrac:
 	curl -Ls http://get.sensiolabs.de/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
 
 tools/infection: tools/infection.pubkey
-	curl -Ls https://github.com/infection/infection/releases/download/0.13.2/infection.phar -o tools/infection && chmod +x tools/infection
+	curl -Ls https://github.com/infection/infection/releases/download/0.16.1/infection.phar -o tools/infection && chmod +x tools/infection
 
 tools/infection.pubkey:
-	curl -Ls https://github.com/infection/infection/releases/download/0.13.2/infection.phar.pubkey -o tools/infection.pubkey
+	curl -Ls https://github.com/infection/infection/releases/download/0.16.1/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
 	curl -Ls https://github.com/humbug/box/releases/download/3.8.4/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
-	curl -Ls https://phar.phpunit.de/phpunit-8.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
+	curl -Ls https://phar.phpunit.de/phpunit-9.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
 
 tests/phar/tools/phpunit.d/zalas-phpunit-doubles-extension.phar: build/zalas-phpunit-doubles-extension.phar
 	cp build/zalas-phpunit-doubles-extension.phar tests/phar/tools/phpunit.d/zalas-phpunit-doubles-extension.phar
