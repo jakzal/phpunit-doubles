@@ -6,12 +6,12 @@ namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\MissingType;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\ProphecyTestDoubles;
 
 class ProphecyTest extends TestCase
 {
     use ProphecyTrait;
-    use TestDoubles;
+    use ProphecyTestDoubles;
 
     /**
      * @var ObjectProphecy

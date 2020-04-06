@@ -5,14 +5,14 @@ namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Inheritance;
 
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\ProphecyTestDoubles;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
 class InheritanceTest extends BaseTestCase
 {
     use ProphecyTrait;
-    use TestDoubles;
+    use ProphecyTestDoubles;
     use PropertyTrait;
 
     public function test_it_initialises_parent_private_properties()

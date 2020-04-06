@@ -5,11 +5,11 @@ namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\MissingType;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\PHPUnitTestDoubles;
 
 class PhpunitTest extends TestCase
 {
-    use TestDoubles;
+    use PHPUnitTestDoubles;
 
     /**
      * @var MockObject

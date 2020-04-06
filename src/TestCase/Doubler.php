@@ -23,15 +23,21 @@ class Doubler
     private $injector;
 
     /**
-     * @var array
+     * @var callable
      */
-    private $doubleFactories;
+    private $doubleFactory;
 
-    public function __construct(Extractor $extractor, Injector $injector, array $doubleFactories)
+    /**
+     * @var string
+     */
+    private $doubleType;
+
+    public function __construct(Extractor $extractor, Injector $injector, callable $doubleFactory, string $doubleType)
     {
         $this->extractor = $extractor;
         $this->injector = $injector;
-        $this->doubleFactories = $doubleFactories;
+        $this->doubleFactory = $doubleFactory;
+        $this->doubleType = $doubleType;
     }
 
     public function createDoubles(/*object */$testCase)
@@ -43,11 +49,8 @@ class Doubler
 
     private function createTestDouble(Property $property)
     {
-        $doubleType = $this->getDoubleType($property);
-        $allDoubleTypes = \array_keys($this->doubleFactories);
-
-        return $this->doubleFactories[$doubleType]($property->getTypesFiltered(function (string $type) use ($allDoubleTypes): bool {
-            return !\in_array($type, $allDoubleTypes);
+        return ($this->doubleFactory)($property->getTypesFiltered(function (string $type): bool {
+            return $type !== $this->doubleType;
         }));
     }
 
@@ -58,28 +61,12 @@ class Doubler
      */
     private function getTestDoubleProperties(/*object */$testCase): array
     {
-        $supportedDoubles = \array_keys($this->doubleFactories);
-
-        return $this->extractor->extract($testCase, function (Property $property) use ($supportedDoubles): bool {
-            $doubleTypes = $property->getTypesFiltered(function (string $type) use ($supportedDoubles): bool {
-                return \in_array($type, $supportedDoubles);
+        return $this->extractor->extract($testCase, function (Property $property): bool {
+            $doubleTypes = $property->getTypesFiltered(function (string $type): bool {
+                return $type === $this->doubleType;
             });
 
             return \count($doubleTypes) > 0;
         });
-    }
-
-    private function getDoubleType(Property $property): string
-    {
-        $supportedDoubles = \array_keys($this->doubleFactories);
-        $doubleTypes = $property->getTypesFiltered(function (string $type) use ($supportedDoubles): bool {
-            return \in_array($type, $supportedDoubles);
-        });
-
-        if (\count($doubleTypes) > 1) {
-            throw new \LogicException(\sprintf('Ambiguous test double definition for "%s": "%s".', $property->getName(), \implode('|', $property->getTypes())));
-        }
-
-        return \array_shift($doubleTypes);
     }
 }

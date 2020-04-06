@@ -5,7 +5,7 @@ namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\PHPUnitTestDoubles;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Death;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
@@ -13,7 +13,7 @@ use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
 class PhpunitTest extends TestCase
 {
-    use TestDoubles;
+    use PHPUnitTestDoubles;
 
     /**
      * @var Vimes|MockObject
