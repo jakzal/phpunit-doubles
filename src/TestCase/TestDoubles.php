@@ -15,7 +15,7 @@ trait TestDoubles
 {
     abstract public function getMockBuilder(string $className): MockBuilder;
 
-    abstract protected function prophesize($classOrInterface = null): ObjectProphecy;
+    abstract protected function prophesize(?string $classOrInterface = null): ObjectProphecy;
 
     /**
      * @before
