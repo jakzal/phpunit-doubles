@@ -11,4 +11,11 @@ declare(strict_types=1);
             require_once $path;
         }
     }
+    if (0 === \strpos($className, 'Prophecy\PhpUnit\\')) {
+        $path = \sprintf('%s/../../vendor/phpspec/prophecy-phpunit/src/%s.php', __DIR__, \strtr($className, ['\\' => '/', 'Prophecy\PhpUnit\\' => '']));
+
+        if (\file_exists($path)) {
+            require_once $path;
+        }
+    }
 });

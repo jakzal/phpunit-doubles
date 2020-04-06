@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\ProphecyTestDoubles;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Death;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
@@ -16,7 +17,8 @@ use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
 
 class ProphecyTest extends TestCase
 {
-    use TestDoubles;
+    use ProphecyTrait;
+    use ProphecyTestDoubles;
 
     /**
      * @var Vimes|ObjectProphecy

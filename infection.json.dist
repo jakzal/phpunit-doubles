@@ -12,7 +12,8 @@
         "@default": true,
         "ArrayItemRemoval": {
             "ignore": [
-                "Zalas\\PHPUnit\\Doubles\\TestCase\\TestDoubles::initialiseTestDoubles"
+                "Zalas\\PHPUnit\\Doubles\\TestCase\\PHPUnitTestDoubles::initialisePHPUnitTestDoubles",
+                "Zalas\\PHPUnit\\Doubles\\TestCase\\ProphecyTestDoubles::initialiseProphecyTestDoubles"
             ]
         },
         "IdenticalEqual": false,

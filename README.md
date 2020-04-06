@@ -30,8 +30,8 @@ Remember to instruct PHPUnit to load extensions in your `phpunit.xml`:
 
 ## Usage
 
-Include the `Zalas\PHPUnit\Doubles\TestCase\TestDoubles` trait to have your test doubles initialised
-in one of the supported test doubling frameworks.
+Include the `Zalas\PHPUnit\Doubles\TestCase\ProphecyTestDoubles` or `Zalas\PHPUnit\Doubles\TestCase\PHPUnitTestDoubles`
+trait to have your test doubles initialised in one of the supported test doubling frameworks.
 
 Both the type of test double and the kind of test doubling framework are taken from the property type:
 
@@ -54,11 +54,11 @@ Currently, two test doubling frameworks are supported:
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\ProphecyTestDoubles;
 
 class DiscworldTest extends TestCase
 {
-    use TestDoubles;
+    use ProphecyTestDoubles;
 
     /**
      * @var Vimes|ObjectProphecy
@@ -89,11 +89,11 @@ class DiscworldTest extends TestCase
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\PHPUnitTestDoubles;
 
 class DiscworldTest extends TestCase
 {
-    use TestDoubles;
+    use PHPUnitTestDoubles;
 
     /**
      * @var Vimes|MockObject

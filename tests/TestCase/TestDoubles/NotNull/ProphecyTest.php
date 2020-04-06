@@ -4,15 +4,17 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\NotNull;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Zalas\PHPUnit\Doubles\TestCase\TestDoubles;
+use Zalas\PHPUnit\Doubles\TestCase\ProphecyTestDoubles;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Fred;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Nobby;
 
 class ProphecyTest extends TestCase
 {
-    use TestDoubles;
+    use ProphecyTrait;
+    use ProphecyTestDoubles;
 
     /**
      * @var Nobby|ObjectProphecy
