@@ -103,7 +103,7 @@ tools/infection.pubkey:
 	curl -Ls https://github.com/infection/infection/releases/download/0.16.1/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.8.4/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.9.1/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
 	curl -Ls https://phar.phpunit.de/phpunit-9.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
