@@ -49,8 +49,7 @@ class PhpunitTest extends TestCase
     {
         $discworld = new Discworld($this->vimes, [$this->nobby, $this->fred]);
 
-        $this->vimes->expects($this->at(0))->method('recruit')->with($this->nobby);
-        $this->vimes->expects($this->at(1))->method('recruit')->with($this->fred);
+        $this->vimes->expects($this->exactly(2))->method('recruit')->withConsecutive([$this->nobby], [$this->fred]);
 
         $discworld->createNightWatch();
     }

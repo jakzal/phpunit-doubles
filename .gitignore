@@ -3,4 +3,5 @@
 /composer.lock
 /vendor/
 /.php_cs.cache
+/.deptrac.cache
 .phpunit.result.cache
