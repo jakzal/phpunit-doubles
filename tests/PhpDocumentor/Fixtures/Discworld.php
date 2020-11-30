@@ -17,4 +17,9 @@ class Discworld extends World
     private $detritus;
 
     private $notDocumented;
+
+    /**
+     * Property with no var tag.
+     */
+    private $noVarTag;
 }
