@@ -85,7 +85,7 @@ package: tools/box
 
 	cd build/phar && \
 	  composer remove phpunit/phpunit --no-update && \
-	  composer config platform.php 7.3 && \
+	  composer config platform.php 7.4 && \
 	  composer update --no-dev -o -a
 
 	tools/box compile
