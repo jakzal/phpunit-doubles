@@ -3,7 +3,7 @@
     "description": "Initialises test doubles in PHPUnit test cases for you",
     "type": "library",
     "require": {
-        "php": "^7.4 || ~8.0.0",
+        "php": "^7.4 || ~8.0.0 || ~8.1.0",
         "phpunit/phpunit": "^9.0",
         "phpdocumentor/reflection-docblock": "^5.2"
     },
