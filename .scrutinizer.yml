@@ -9,6 +9,10 @@ build:
             - make test
     project_setup:
     nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
         coverage:
             tests:
                 override:
