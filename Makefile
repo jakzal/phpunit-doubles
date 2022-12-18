@@ -1,4 +1,4 @@
-IS_PHP81:=$(shell php -r 'echo (int)version_compare(PHP_VERSION, "8.1", ">=");')
+IS_PHP82:=$(shell php -r 'echo (int)version_compare(PHP_VERSION, "8.2", ">=");')
 
 default: build
 
@@ -27,7 +27,7 @@ test: vendor cs deptrac phpunit infection
 test-min: update-min cs deptrac phpunit infection
 .PHONY: test-min
 
-ifeq ($(IS_PHP81),1)
+ifeq ($(IS_PHP82),1)
 test-package:
 else
 test-package: package test-package-tools
@@ -35,21 +35,13 @@ test-package: package test-package-tools
 endif
 .PHONY: test-package
 
-ifeq ($(IS_PHP81),1)
-cs:
-else
 cs: tools/php-cs-fixer
 	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --dry-run --allow-risky=yes --no-interaction --ansi fix
-endif
 .PHONY: cs
 
-ifeq ($(IS_PHP81),1)
-cs-fix:
-else
 cs-fix: tools/php-cs-fixer
 	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer --allow-risky=yes --no-interaction --ansi fix
 .PHONY: cs-fix
-endif
 
 deptrac: tools/deptrac
 	tools/deptrac --no-interaction --ansi
@@ -80,7 +72,7 @@ clean:
 	find tests/phar/tools -not -path '*/\.*' -type f -delete
 .PHONY: clean
 
-ifeq ($(IS_PHP81),1)
+ifeq ($(IS_PHP82),1)
 package:
 else
 package: tools/box
@@ -109,19 +101,19 @@ tools/phpunit: vendor/bin/phpunit
 	ln -sf ../vendor/bin/phpunit tools/phpunit
 
 tools/php-cs-fixer:
-	curl -Ls http://cs.symfony.com/download/php-cs-fixer-v2.phar -o tools/php-cs-fixer && chmod +x tools/php-cs-fixer
+	curl -Ls http://cs.symfony.com/download/php-cs-fixer-v3.phar -o tools/php-cs-fixer && chmod +x tools/php-cs-fixer
 
 tools/deptrac:
-	curl -Ls https://github.com/sensiolabs-de/deptrac/releases/download/0.19.1/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
+	curl -Ls https://github.com/sensiolabs-de/deptrac/releases/download/0.24.0/deptrac.phar -o tools/deptrac && chmod +x tools/deptrac
 
 tools/infection: tools/infection.pubkey
-	curl -Ls https://github.com/infection/infection/releases/download/0.26.1/infection.phar -o tools/infection && chmod +x tools/infection
+	curl -Ls https://github.com/infection/infection/releases/download/0.26.16/infection.phar -o tools/infection && chmod +x tools/infection
 
 tools/infection.pubkey:
-	curl -Ls https://github.com/infection/infection/releases/download/0.26.1/infection.phar.pubkey -o tools/infection.pubkey
+	curl -Ls https://github.com/infection/infection/releases/download/0.26.16/infection.phar.pubkey -o tools/infection.pubkey
 
 tools/box:
-	curl -Ls https://github.com/humbug/box/releases/download/3.14.0/box.phar -o tools/box && chmod +x tools/box
+	curl -Ls https://github.com/humbug/box/releases/download/3.16.0/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
 	curl -Ls https://phar.phpunit.de/phpunit-9.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
