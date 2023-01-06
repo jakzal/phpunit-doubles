@@ -32,7 +32,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-1.9": "1.9.x-dev"
+            "dev-main": "2.0.x-dev"
         }
     }
 }
