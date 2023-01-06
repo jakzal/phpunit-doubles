@@ -2,7 +2,7 @@ name: Build
 
 on:
     push:
-        branches: [master]
+        branches: ['1.9']
     pull_request:
     release:
         types: [created]
