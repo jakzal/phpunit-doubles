@@ -1,7 +1,7 @@
 # PHPUnit Doubles
 
-[![Build Status](https://travis-ci.com/jakzal/phpunit-doubles.svg?branch=master)](https://travis-ci.com/jakzal/phpunit-doubles)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jakzal/phpunit-doubles/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jakzal/phpunit-doubles/?branch=master)
+[![Build](https://github.com/jakzal/phpunit-doubles/actions/workflows/build.yml/badge.svg)](https://github.com/jakzal/phpunit-doubles/actions/workflows/build.yml)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jakzal/phpunit-doubles/badges/quality-score.png?b=1.9)](https://scrutinizer-ci.com/g/jakzal/phpunit-doubles/?branch=1.9)
 
 Initialises test doubles in PHPUnit test cases for you.
 
