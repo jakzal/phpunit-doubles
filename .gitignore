@@ -4,4 +4,5 @@
 /vendor/
 /.php-cs-fixer.cache
 /.deptrac.cache
+/.phpunit.cache
 .phpunit.result.cache
