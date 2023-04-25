@@ -48,7 +48,7 @@ deptrac: tools/deptrac
 .PHONY: deptrac
 
 infection: tools/infection tools/infection.pubkey
-	./tools/infection --no-interaction --formatter=progress --min-msi=100 --min-covered-msi=100 --ansi
+	./tools/infection --no-interaction --formatter=progress --min-msi=100 --min-covered-msi=100 --only-covered --ansi
 .PHONY: infection
 
 phpunit: tools/phpunit
