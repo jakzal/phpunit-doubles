@@ -37,9 +37,6 @@ trait PHPUnitTestDoubles
         return $this->getMockBuilder($normalisedTypes)
             ->disableOriginalConstructor()
             ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->disableProxyingToOriginalMethods()
-            ->disallowMockingUnknownTypes()
             ->getMock();
     }
 }
