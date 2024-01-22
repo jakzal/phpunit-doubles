@@ -31,7 +31,7 @@ jobs:
                 with:
                     php-version: "${{ matrix.php }}"
                     ini-values: "phar.readonly=0"
-                    coverage: none
+                    coverage: pcov
 
             -   name: Test & package
                 if: matrix.deps == 'high'
