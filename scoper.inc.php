@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
 return [
-    'whitelist' => [
-        'PHPUnit\Framework\*',
-        'Prophecy\Prophecy\*',
-        'Zalas\PHPUnit\Doubles\*',
+    'exclude-namespaces' => [
+        'PHPUnit\Framework',
+        'Prophecy\Prophecy',
+        'Zalas\PHPUnit\Doubles',
     ],
 ];
