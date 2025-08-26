@@ -4,7 +4,6 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          bootstrap="bootstrap.php"
-         verbose="true"
          extensionsDirectory="tools/phpunit.d">
     <testsuites>
         <testsuite name="default">

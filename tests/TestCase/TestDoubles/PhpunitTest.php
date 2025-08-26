@@ -10,10 +10,12 @@ use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Copper;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Death;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Discworld;
 use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\Fixtures\Vimes;
+use Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\TestKit\ConsecutiveParams;
 
 class PhpunitTest extends TestCase
 {
     use PHPUnitTestDoubles;
+    use ConsecutiveParams;
 
     /**
      * @var Vimes|MockObject
@@ -49,7 +51,9 @@ class PhpunitTest extends TestCase
     {
         $discworld = new Discworld($this->vimes, [$this->nobby, $this->fred]);
 
-        $this->vimes->expects($this->exactly(2))->method('recruit')->withConsecutive([$this->nobby], [$this->fred]);
+        $this->vimes->expects($this->exactly(2))
+            ->method('recruit')
+            ->with(...$this->consecutiveParams([$this->nobby], [$this->fred]));
 
         $discworld->createNightWatch();
     }

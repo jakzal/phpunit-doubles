@@ -42,7 +42,7 @@ deptrac: tools/deptrac
 .PHONY: deptrac
 
 infection: tools/infection tools/infection.pubkey
-	./tools/infection --no-interaction --formatter=progress --min-msi=100 --min-covered-msi=100 --ansi
+	./tools/infection --no-interaction --formatter=progress --min-msi=100 --min-covered-msi=100 --only-covered --ansi
 .PHONY: infection
 
 phpunit: tools/phpunit
@@ -106,7 +106,7 @@ tools/box:
 	curl -Ls https://github.com/humbug/box/releases/download/4.6.6/box.phar -o tools/box && chmod +x tools/box
 
 tests/phar/tools/phpunit:
-	curl -Ls https://phar.phpunit.de/phpunit-9.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
+	curl -Ls https://phar.phpunit.de/phpunit-11.phar -o tests/phar/tools/phpunit && chmod +x tests/phar/tools/phpunit
 
 tests/phar/tools/phpunit.d/zalas-phpunit-doubles-extension.phar: build/zalas-phpunit-doubles-extension.phar
 	cp build/zalas-phpunit-doubles-extension.phar tests/phar/tools/phpunit.d/zalas-phpunit-doubles-extension.phar
