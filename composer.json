@@ -3,12 +3,12 @@
     "description": "Initialises test doubles in PHPUnit test cases for you",
     "type": "library",
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
-        "phpunit/phpunit": "^9.6",
+        "php": "~8.3.0 || ~8.4.0",
+        "phpunit/phpunit": "^11.0",
         "phpdocumentor/reflection-docblock": "^5.2"
     },
     "require-dev": {
-        "phpspec/prophecy-phpunit": "^2.0.1"
+        "phpspec/prophecy-phpunit": "^2.2"
     },
     "conflict": {
         "phpdocumentor/type-resolver": "1.3.0"
