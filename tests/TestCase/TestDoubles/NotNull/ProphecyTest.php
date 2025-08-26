@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\NotNull;
 
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -26,9 +27,7 @@ class ProphecyTest extends TestCase
      */
     private $fred = 'Fred';
 
-    /**
-     * @before
-     */
+    #[Before]
     public function createNobby()
     {
         $this->nobby = $this->prophesize(Copper::class);

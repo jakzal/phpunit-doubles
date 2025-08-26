@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zalas\PHPUnit\Doubles\Tests\TestCase\TestDoubles\NotNull;
 
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Zalas\PHPUnit\Doubles\TestCase\PHPUnitTestDoubles;
@@ -24,9 +25,7 @@ class PhpunitTest extends TestCase
      */
     private $fred = 'Fred';
 
-    /**
-     * @before
-     */
+    #[Before]
     public function crateNobby()
     {
         $this->nobby = $this->createMock(Copper::class);
