@@ -3,8 +3,6 @@
     "output": "../zalas-phpunit-doubles-extension.phar",
     "compression": "GZ",
     "directories": ["."],
-    "dump-autoload": true,
-    "exclude-composer-files": true,
     "check-requirements": false,
     "main": "vendor/autoload.php",
     "compactors": [
