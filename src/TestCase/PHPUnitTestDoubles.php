@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Zalas\PHPUnit\Doubles\TestCase;
 
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -14,9 +15,7 @@ trait PHPUnitTestDoubles
 {
     abstract public function getMockBuilder(string $className): MockBuilder;
 
-    /**
-     * @before
-     */
+    #[Before]
     protected function initialisePHPUnitTestDoubles(): void
     {
         $doubler = new Doubler(
