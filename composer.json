@@ -23,8 +23,6 @@
             "Zalas\\PHPUnit\\Doubles\\Tests\\": "tests"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "license": "MIT",
     "authors": [
         {
