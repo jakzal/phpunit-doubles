@@ -3,6 +3,7 @@
 namespace Zalas\PHPUnit\Doubles\TestCase;
 
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Zalas\PHPUnit\Doubles\Injector\PropertyAccessInjector;
@@ -12,9 +13,7 @@ trait ProphecyTestDoubles
 {
     abstract protected function prophesize(?string $classOrInterface = null): ObjectProphecy;
 
-    /**
-     * @before
-     */
+    #[Before]
     protected function initialiseProphecyTestDoubles(): void
     {
         $doubler = new Doubler(
